@@ -1,0 +1,2170 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WineSip Sales — Manual Comercial & Battlecard de Ventas</title>
+  <meta name="description" content="Manual comercial, simulador interactivo de ROI y battlecard de objeciones para agentes de ventas en ruta vitivinícola de WineSip." />
+  <meta name="theme-color" content="#434194" />
+  
+  <!-- Open Graph / WhatsApp / Facebook Preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="WineSip Sales — Manual Comercial & Battlecard de Ventas" />
+  <meta property="og:description" content="Simulador interactivo de ROI, evidencia científica y guión de cierre en 5 minutos para bodegas y salas de cata." />
+  <meta property="og:image" content="logo.png" />
+
+  <!-- Twitter / X Preview -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="WineSip Sales — Manual Comercial" />
+  <meta name="twitter:description" content="Simulador interactivo de ROI y guía de campo comercial WineSip." />
+  <meta name="twitter:image" content="logo.png" />
+
+  <link rel="icon" type="image/png" href="logo.png" />
+  
+  <!-- Modern Geometric Typography Hierarchy with Dancing Script & Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Poppins:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            noir: {
+              950: '#040306',
+              900: '#07060b',
+              850: '#0c0a13',
+              800: '#120f1c',
+              750: '#181425',
+              700: '#211c33',
+              600: '#322c4d',
+            },
+            winesip: {
+              DEFAULT: '#434194',
+              50: '#f2f2fc',
+              100: '#e5e5fa',
+              200: '#cecef5',
+              300: '#a7a5ed',
+              400: '#7e7be2',
+              500: '#615dd4',
+              600: '#434194',
+              700: '#353377',
+              800: '#272659',
+              900: '#1b1a3d',
+              950: '#0e0d22',
+              glow: 'rgba(67, 65, 148, 0.45)',
+            },
+            cabernet: {
+              900: '#380612',
+              800: '#5c0a1e',
+              700: '#84132f',
+              600: '#a71c3e',
+              500: '#c8284e',
+              400: '#e5436a',
+              glow: 'rgba(167, 28, 62, 0.45)',
+            },
+            champagne: {
+              300: '#fef3c7',
+              400: '#fde68a',
+              500: '#f5d47a',
+              600: '#d4af37',
+              700: '#b89428',
+              800: '#8d701a',
+              glow: 'rgba(212, 175, 55, 0.35)',
+            }
+          },
+          fontFamily: {
+            brand: ['"Dancing Script"', 'cursive'],
+            poppins: ['Poppins', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-noir: #060509;
+      --winesip: #434194;
+      --winesip-light: #5d59be;
+      --winesip-glow: rgba(67, 65, 148, 0.45);
+      --card-noir: rgba(14, 11, 22, 0.78);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --cursor-x: 50vw;
+      --cursor-y: 50vh;
+    }
+
+    body {
+      background-color: var(--bg-noir);
+      color: #e2e8f0;
+      overflow-x: hidden;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .font-brand {
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .font-poppins {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Ambient Canvas Gradients with #434194 Accent */
+    .bg-sommelier-mesh {
+      background-color: #050408;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(67, 65, 148, 0.3) 0%, transparent 45%),
+        radial-gradient(circle at 85% 25%, rgba(132, 19, 47, 0.22) 0%, transparent 50%),
+        radial-gradient(circle at 50% 55%, rgba(67, 65, 148, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 20% 85%, rgba(56, 6, 18, 0.25) 0%, transparent 55%),
+        radial-gradient(circle at 80% 90%, rgba(67, 65, 148, 0.28) 0%, transparent 50%);
+    }
+
+    /* Film Grain Velvet Overlay */
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.026;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Interactive Spotlight */
+    .spotlight {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(650px circle at var(--cursor-x) var(--cursor-y), rgba(67, 65, 148, 0.16), rgba(212, 175, 55, 0.03) 40%, transparent 70%);
+      transition: background 0.15s ease-out;
+    }
+
+    /* High-Craft Obsidian Glass Card */
+    .obsidian-card {
+      background: linear-gradient(145deg, rgba(20, 16, 30, 0.78) 0%, rgba(10, 8, 16, 0.9) 100%);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid var(--card-border);
+      box-shadow: 
+        0 24px 48px -18px rgba(0, 0, 0, 0.85),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+        inset 0 0 24px 0 rgba(0, 0, 0, 0.4);
+      transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    .obsidian-card:hover {
+      border-color: rgba(67, 65, 148, 0.55);
+      box-shadow: 
+        0 30px 60px -15px rgba(0, 0, 0, 0.9),
+        0 0 35px -5px rgba(67, 65, 148, 0.35),
+        inset 0 1px 0 0 rgba(206, 206, 245, 0.25);
+    }
+
+    /* Featured WineSip Glow Card */
+    .obsidian-card-featured {
+      background: linear-gradient(155deg, rgba(28, 26, 60, 0.9) 0%, rgba(14, 11, 25, 0.95) 60%, rgba(20, 16, 38, 0.92) 100%);
+      border: 2px solid #434194;
+      box-shadow: 
+        0 25px 55px -12px rgba(0, 0, 0, 0.9),
+        0 0 45px -8px rgba(67, 65, 148, 0.45),
+        inset 0 1px 0 0 rgba(206, 206, 245, 0.35);
+    }
+
+    /* Gold Foil Text */
+    .text-gold-foil {
+      background: linear-gradient(135deg, #fffbeb 0%, #fde68a 35%, #d4af37 70%, #997b1a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    /* Custom Input Range Slider */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      height: 8px;
+      background: #191426;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7e7be2 0%, #434194 100%);
+      margin-top: -8px;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(67, 65, 148, 0.8), 0 2px 6px rgba(0,0,0,0.8);
+      border: 2px solid #ffffff;
+      transition: transform 0.15s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.18);
+    }
+
+    /* Custom Ultra-Slim Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #050408;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #231c33;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #434194;
+    }
+
+    /* Pulsing Live Radar */
+    @keyframes radarPing {
+      0% { transform: scale(0.95); opacity: 0.85; }
+      50% { transform: scale(1.4); opacity: 0; }
+      100% { transform: scale(0.95); opacity: 0; }
+    }
+    .radar-pulse {
+      animation: radarPing 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    /* Print View for Field One-Pager */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .obsidian-card, header, footer, #bottom-hud, .spotlight, .grain-overlay {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        color: #000000 !important;
+      }
+      .text-gold-foil {
+        -webkit-text-fill-color: initial !important;
+        color: #000000 !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-sommelier-mesh font-sans antialiased selection:bg-winesip selection:text-white relative min-h-screen">
+
+  <!-- Tactile Velvet Film Grain Texture -->
+  <div class="grain-overlay"></div>
+
+  <!-- Cursor Responsive Lighting Spotlight -->
+  <div id="spotlight" class="spotlight"></div>
+
+  <!-- Redesigned Clean, Balanced & Breathable Glass Navigation -->
+  <header class="sticky top-0 z-50 bg-noir-950/80 backdrop-blur-xl border-b border-white/[0.08] transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-[72px] flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Clean Single-Line Lockup -->
+      <a href="#" class="flex items-center gap-3 group shrink-0">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden border border-winesip/60 shadow-md shadow-winesip/25 p-0.5 bg-noir-900 group-hover:scale-105 transition-transform flex items-center justify-center">
+          <img src="logo.png" alt="WineSip Logo" class="w-full h-full object-cover rounded-[10px]" />
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="font-brand font-bold text-2xl sm:text-[28px] text-white tracking-normal leading-none pt-0.5">WineSip</span>
+          <span class="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider font-semibold rounded-full bg-winesip/25 text-indigo-300 border border-winesip/50 leading-none">Sales</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navlinks in Clean Centered Glass Capsule -->
+      <nav class="hidden lg:flex items-center gap-1 p-1 rounded-full bg-white/[0.03] border border-white/[0.07] shadow-inner">
+        <a href="#vision" class="px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.07] transition-all">Visión</a>
+        <a href="#calculadora" class="px-3.5 py-1.5 rounded-full text-xs font-semibold text-indigo-300 hover:text-white hover:bg-winesip/30 transition-all flex items-center gap-1.5">
+          <span>Simulador ROI</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-winesip-400"></span>
+        </a>
+        <a href="#estudios" class="px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.07] transition-all">Estudios</a>
+        <a href="#planes" class="px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.07] transition-all">Planes</a>
+        <a href="#competencia" class="px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.07] transition-all">vs Alternativas</a>
+        <a href="#objeciones" class="px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.07] transition-all">Objeciones</a>
+      </nav>
+
+      <!-- Right Action Cluster (Uniform h-9 Elements) -->
+      <div class="flex items-center gap-2.5 shrink-0">
+        <!-- Sound Effect Toggle -->
+        <button id="btn-sound-toggle" onclick="toggleAudioFx()" title="Efectos de sonido hápticos (On/Off)" class="w-9 h-9 rounded-xl bg-noir-850 hover:bg-noir-800 text-slate-400 hover:text-indigo-300 border border-white/10 hover:border-winesip/50 flex items-center justify-center transition-colors">
+          <i id="icon-sound" data-lucide="volume-2" class="w-4 h-4"></i>
+        </button>
+
+        <!-- Google Doc Link -->
+        <a href="https://docs.google.com/document/d/1kf0bbVV9DzE7lDP-r5U7ABNpoOBNmqCHo3h680_0cfU/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 h-9 rounded-xl text-xs font-medium bg-noir-850 hover:bg-noir-800 text-slate-300 hover:text-white border border-white/10 hover:border-winesip/40 transition-all">
+          <i data-lucide="file-text" class="w-3.5 h-3.5 text-indigo-300"></i>
+          <span>Google Doc</span>
+        </a>
+
+        <!-- Fast Scroll to Pitch HUD (#434194 Accent Button) -->
+        <a href="#pitch" class="inline-flex items-center gap-1.5 px-4 h-9 rounded-xl text-xs font-bold bg-winesip hover:bg-winesip-500 text-white shadow-md shadow-winesip/30 border border-winesip-400/30 transition-all active:scale-95">
+          <i data-lucide="timer" class="w-3.5 h-3.5 text-indigo-200"></i>
+          <span class="tracking-wide">Pitch 5 Min</span>
+        </a>
+
+        <!-- Mobile Menu Trigger -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden w-9 h-9 rounded-xl bg-noir-850 text-slate-300 border border-white/10 flex items-center justify-center hover:bg-noir-800 transition-colors">
+          <i data-lucide="menu" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer Nav -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-white/[0.08] bg-noir-950/95 px-5 py-4 space-y-3 backdrop-blur-2xl">
+      <a href="#vision" onclick="toggleMobileMenu()" class="block text-sm text-slate-300 hover:text-indigo-300 py-1">Visión & Dilema</a>
+      <a href="#calculadora" onclick="toggleMobileMenu()" class="block text-sm text-indigo-300 font-semibold hover:text-white py-1">Simulador Financiero ROI</a>
+      <a href="#estudios" onclick="toggleMobileMenu()" class="block text-sm text-slate-300 hover:text-indigo-300 py-1">Estudios Científicos (MSU & SVB)</a>
+      <a href="#planes" onclick="toggleMobileMenu()" class="block text-sm text-slate-300 hover:text-indigo-300 py-1">Planes y Precios</a>
+      <a href="#competencia" onclick="toggleMobileMenu()" class="block text-sm text-slate-300 hover:text-indigo-300 py-1"><span class="font-brand font-bold text-base text-indigo-300 pr-1">WineSip</span> vs Competencia</a>
+      <a href="#objeciones" onclick="toggleMobileMenu()" class="block text-sm text-slate-300 hover:text-indigo-300 py-1">Manejo de Objeciones</a>
+      <a href="#pitch" onclick="toggleMobileMenu()" class="block text-sm text-indigo-300 font-bold py-1">Checklist & Temporizador de Pitch</a>
+      <div class="pt-3 border-t border-white/10 flex gap-3">
+        <a href="https://docs.google.com/document/d/1kf0bbVV9DzE7lDP-r5U7ABNpoOBNmqCHo3h680_0cfU/edit?usp=drivesdk" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-noir-850 text-xs text-slate-300 border border-white/10">Ver Google Doc</a>
+        <a href="https://winesip-business.web.app" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-winesip text-xs text-white">App Web</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section: Modern Sans-Serif High-Craft Experience -->
+  <section class="relative pt-16 sm:pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+    
+    <div class="text-center max-w-4xl mx-auto relative z-10">
+      
+      <!-- Field Sales Badge with Radar Pulse -->
+      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-noir-850/90 border border-winesip/50 text-indigo-200 text-xs font-mono uppercase tracking-widest mb-8 backdrop-blur-md shadow-xl shadow-winesip/10">
+        <span class="relative flex h-2 w-2">
+          <span class="radar-pulse absolute inline-flex h-full w-full rounded-full bg-winesip-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-winesip-400"></span>
+        </span>
+        Manual de Campo 2026 &bull; Agentes en Ruta Vitivinícola
+      </div>
+      
+      <!-- Modern Bold Geometric Sans Heading (No Serifs) -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-heading font-extrabold tracking-tight text-white leading-[1.08] sm:leading-[1.1]">
+        No vendas software.<br/>
+        Vende <span class="bg-gradient-to-r from-indigo-200 via-[#aba8ed] to-[#7e7be2] bg-clip-text text-transparent">visitantes reales</span> a la sala de cata.
+      </h1>
+
+      <!-- Subheading -->
+      <p class="mt-6 text-base sm:text-xl text-slate-300 font-light max-w-2xl mx-auto leading-relaxed">
+        El manual táctico y sin tecnicismos para que cada visita a viñedos se traduzca en una activación inmediata en 5 minutos, respaldada por la economía real de la industria del vino.
+      </p>
+
+      <!-- Quick Action Buttons -->
+      <div class="mt-8 flex flex-wrap justify-center items-center gap-3">
+        <a href="#calculadora" class="px-6 py-3 rounded-xl bg-gradient-to-r from-winesip via-winesip-500 to-winesip hover:from-winesip-500 hover:to-winesip-400 text-white font-heading font-bold text-sm shadow-xl shadow-winesip/40 border border-winesip/60 transition-all flex items-center gap-2 active:scale-95">
+          <i data-lucide="calculator" class="w-4 h-4 text-indigo-200"></i>
+          <span>Abrir Calculadora en Vivo</span>
+        </a>
+        <a href="#pitch" class="px-6 py-3 rounded-xl bg-noir-850 hover:bg-noir-800 text-white font-heading font-medium text-sm border border-winesip/30 hover:border-winesip/60 transition-all flex items-center gap-2">
+          <i data-lucide="clock" class="w-4 h-4 text-indigo-300"></i>
+          <span>Guión de 5 Minutos</span>
+        </a>
+      </div>
+
+      <!-- 4 Core Empirical Pillars -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-16 text-left">
+        
+        <!-- Metric 1: Average Spend -->
+        <div class="obsidian-card p-6 rounded-2xl relative overflow-hidden group hover:border-winesip/60">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-winesip/20 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="flex items-center justify-between text-indigo-300 mb-2">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Gasto Inmediato</span>
+            <i data-lucide="wine" class="w-4 h-4 text-indigo-400"></i>
+          </div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-white font-heading tracking-tight">
+            ~$83 <span class="text-xs font-mono font-normal text-slate-400">USD</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            Por visitante en mostrador (<b class="text-slate-200">$38</b> cata + <b class="text-slate-200">$45</b> botella). Fuente MSU.
+          </p>
+        </div>
+
+        <!-- Metric 2: Break Even -->
+        <div class="obsidian-card p-6 rounded-2xl relative overflow-hidden group hover:border-emerald-500/50">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="flex items-center justify-between text-emerald-400 mb-2">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Punto de Retorno</span>
+            <i data-lucide="target" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-white font-heading tracking-tight">
+            1 Solo <span class="text-xs font-mono font-normal text-slate-400">Visitante</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            1 solo visitante adicional al mes paga el <b class="text-emerald-300">100%</b> de la cuota Starter.
+          </p>
+        </div>
+
+        <!-- Metric 3: Reverse Trial -->
+        <div class="obsidian-card p-6 rounded-2xl relative overflow-hidden group hover:border-winesip/60">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-winesip/25 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="flex items-center justify-between text-indigo-300 mb-2">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Prueba Inversa</span>
+            <i data-lucide="shield-check" class="w-4 h-4 text-indigo-400"></i>
+          </div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-white font-heading tracking-tight">
+            14 Días <span class="text-xs font-mono font-normal text-slate-400">Sin Tarjeta</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            Acceso Professional completo sin pedir tarjeta. Cero fricción en campo.
+          </p>
+        </div>
+
+        <!-- Metric 4: Commission -->
+        <div class="obsidian-card p-6 rounded-2xl relative overflow-hidden group border-winesip/40 hover:border-winesip">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-winesip/20 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="flex items-center justify-between text-indigo-400 mb-2">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Comisión Botella</span>
+            <i data-lucide="badge-percent" class="w-4 h-4 text-indigo-400"></i>
+          </div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-white font-heading tracking-tight">
+            0% <span class="text-xs font-mono font-normal text-slate-400">Tasa</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            Tarifa plana mensual. El <b class="text-indigo-200">100%</b> del margen de venta es de la bodega.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive ROI Simulator Section -->
+  <section id="calculadora" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="obsidian-card rounded-3xl p-6 sm:p-12 relative overflow-hidden border border-winesip/50 shadow-2xl shadow-winesip/20">
+      
+      <!-- Background Ambient Glow -->
+      <div class="absolute -right-24 -bottom-24 w-96 h-96 bg-winesip/30 rounded-full blur-[130px] pointer-events-none"></div>
+      <div class="absolute -left-24 -top-24 w-80 h-80 bg-cabernet-700/15 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <!-- Header & Instructions for Sales Rep -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b border-winesip/25">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-winesip/25 border border-winesip/50 text-indigo-200 font-mono text-[11px] uppercase tracking-wider mb-2">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-300"></i>
+            Herramienta Interactiva de Cierre In-Situ
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight">
+            Simulador de Retorno Económico (ROI)
+          </h2>
+          <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+            Muéstrale esta pantalla al dueño o sommelier en tu teléfono. Modifica los parámetros con sus números reales para que vean el beneficio antes de firmar.
+          </p>
+        </div>
+
+        <!-- Preset Scenarios with #434194 Accent Borders -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="text-xs text-slate-400 font-mono">Escenarios rápidos:</span>
+          <button onclick="applyPreset(1, 83)" class="px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-slate-300 text-xs font-mono border border-white/10 hover:border-winesip/60 transition-colors">
+            1 Visita (Mínimo)
+          </button>
+          <button onclick="applyPreset(4, 83)" class="px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-indigo-300 text-xs font-mono border border-winesip/40 hover:border-winesip transition-colors">
+            4 Visitas (Típico)
+          </button>
+          <button onclick="applyPreset(12, 120)" class="px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-slate-300 text-xs font-mono border border-white/10 hover:border-winesip/60 transition-colors">
+            12 Visitas (Fin de Semana)
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Interactive Controls (Left Column) -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Slider 1: Additional Visitors per Month -->
+          <div class="bg-noir-900/90 p-6 rounded-2xl border border-winesip/25 shadow-inner">
+            <div class="flex justify-between items-center mb-3">
+              <div>
+                <label class="text-sm font-semibold text-white block">Visitantes adicionales generados por mes</label>
+                <span class="text-xs text-slate-400">Turistas guiados por geocerca a la sala de cata</span>
+              </div>
+              <span id="slider-visitors-val" class="font-mono text-xl font-bold text-indigo-200 bg-winesip/30 px-4 py-1.5 rounded-xl border border-winesip/60 shadow">
+                2 personas
+              </span>
+            </div>
+            <input id="slider-visitors" type="range" min="1" max="30" value="2" step="1" class="w-full cursor-pointer my-2" />
+            <div class="flex justify-between text-[11px] text-slate-500 font-mono mt-1">
+              <span>1 persona (Cubre Starter)</span>
+              <span>15 personas</span>
+              <span>30 personas</span>
+            </div>
+          </div>
+
+          <!-- Slider 2: Average Ticket Spend -->
+          <div class="bg-noir-900/90 p-6 rounded-2xl border border-winesip/25 shadow-inner">
+            <div class="flex justify-between items-center mb-3">
+              <div>
+                <label class="text-sm font-semibold text-white block">Gasto promedio por persona en mostrador</label>
+                <span class="text-xs text-slate-400">Degustación + compra de botellas directas</span>
+              </div>
+              <span id="slider-spend-val" class="font-mono text-xl font-bold text-emerald-400 bg-noir-850 px-4 py-1.5 rounded-xl border border-emerald-500/40 shadow">
+                $83 USD
+              </span>
+            </div>
+            <input id="slider-spend" type="range" min="30" max="200" value="83" step="1" class="w-full cursor-pointer my-2" />
+            <div class="flex justify-between text-[11px] text-slate-500 font-mono mt-1">
+              <span class="cursor-pointer hover:text-indigo-300" onclick="setSpendValue(38)">$38 (Solo degustación)</span>
+              <span class="cursor-pointer hover:text-indigo-300 font-bold text-slate-300" onclick="setSpendValue(83)">$83 (Promedio MSU)</span>
+              <span class="cursor-pointer hover:text-indigo-300" onclick="setSpendValue(140)">$140 (Reserva / Cava)</span>
+            </div>
+          </div>
+
+          <!-- Plan Selector Pill Toggle -->
+          <div class="bg-noir-900/90 p-6 rounded-2xl border border-winesip/25 shadow-inner">
+            <label class="text-sm font-semibold text-white block mb-3">Plan de suscripción evaluado:</label>
+            <div class="grid grid-cols-3 gap-3">
+              
+              <button id="plan-btn-starter" onclick="setCalcPlan('starter')" class="p-3.5 rounded-xl border text-left transition-all border-white/10 bg-noir-850 text-slate-300 hover:border-winesip/50">
+                <div class="text-[10px] text-slate-400 font-mono uppercase">Boutique</div>
+                <div class="text-sm font-bold text-white mt-0.5">Starter</div>
+                <div class="text-xs font-mono text-indigo-300 mt-1">$49/mes</div>
+              </button>
+
+              <button id="plan-btn-pro" onclick="setCalcPlan('pro')" class="p-3.5 rounded-xl border text-left transition-all border-winesip bg-winesip/30 text-white shadow-lg shadow-winesip/40">
+                <div class="text-[10px] text-indigo-200 font-mono uppercase flex items-center justify-between">
+                  <span>Recomendado</span>
+                  <i data-lucide="check" class="w-3 h-3 text-indigo-200"></i>
+                </div>
+                <div class="text-sm font-bold text-white mt-0.5">Professional</div>
+                <div class="text-xs font-mono text-indigo-200 mt-1 font-bold">$99/mes</div>
+              </button>
+
+              <button id="plan-btn-portfolio" onclick="setCalcPlan('portfolio')" class="p-3.5 rounded-xl border text-left transition-all border-white/10 bg-noir-850 text-slate-300 hover:border-winesip/50">
+                <div class="text-[10px] text-slate-400 font-mono uppercase">Multi-Sede</div>
+                <div class="text-sm font-bold text-white mt-0.5">Portfolio</div>
+                <div class="text-xs font-mono text-indigo-300 mt-1">$249/mes</div>
+              </button>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Real-Time Metrics Ledger -->
+        <div class="lg:col-span-5 bg-gradient-to-br from-noir-800 via-noir-900 to-winesip/25 p-6 sm:p-8 rounded-3xl border border-winesip/50 shadow-2xl relative">
+          
+          <div class="flex items-center justify-between pb-4 border-b border-white/10">
+            <span class="text-xs font-mono uppercase tracking-wider text-indigo-200 flex items-center gap-1.5">
+              <i data-lucide="pie-chart" class="w-4 h-4 text-indigo-300"></i>
+              Balance Mensual Estimado
+            </span>
+            <span id="calc-badge-status" class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+              RENTABLE
+            </span>
+          </div>
+          
+          <!-- Financial Ledger Rows -->
+          <div class="mt-6 space-y-4">
+            
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-slate-300 flex items-center gap-2">
+                <i data-lucide="arrow-down-left" class="w-4 h-4 text-emerald-400"></i>
+                Ingreso Bruto en Mostrador:
+              </span>
+              <span id="calc-gross" class="font-mono text-lg font-bold text-emerald-400 tabular-nums">
+                $166 USD
+              </span>
+            </div>
+
+            <div class="flex justify-between items-center text-sm">
+              <span class="text-slate-300 flex items-center gap-2">
+                <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-400"></i>
+                Inversión WineSip:
+              </span>
+              <span id="calc-cost" class="font-mono text-sm text-slate-300 tabular-nums">
+                -$99 USD
+              </span>
+            </div>
+
+            <!-- Visual Bar Comparison -->
+            <div class="pt-2">
+              <div class="flex justify-between text-[11px] font-mono text-slate-400 mb-1">
+                <span>Retorno vs Inversión</span>
+                <span id="calc-ratio-text">1.68x Retorno</span>
+              </div>
+              <div class="w-full h-3 bg-noir-950 rounded-full overflow-hidden p-0.5 border border-white/10 flex">
+                <div id="bar-cost" class="h-full bg-slate-600 rounded-l-full transition-all duration-300" style="width: 37%;"></div>
+                <div id="bar-profit" class="h-full bg-gradient-to-r from-winesip to-emerald-400 rounded-r-full transition-all duration-300" style="width: 63%;"></div>
+              </div>
+            </div>
+
+            <div class="pt-3 pb-3 border-t border-b border-white/10 flex justify-between items-center">
+              <div>
+                <span class="text-xs uppercase font-mono tracking-wider text-slate-400 block">Ganancia Neta Limpia</span>
+                <span class="text-[11px] text-slate-400">Directo a caja de la bodega</span>
+              </div>
+              <span id="calc-net" class="font-mono text-2xl font-extrabold text-white tabular-nums">
+                +$67 USD
+              </span>
+            </div>
+
+            <div class="flex justify-between items-center pt-1">
+              <div>
+                <span class="text-xs font-semibold text-indigo-200 block">Retorno de Inversión (ROI)</span>
+                <span class="text-[10px] text-slate-400 font-mono">Rendimiento porcentual</span>
+              </div>
+              <span id="calc-roi" class="font-mono text-3xl font-black text-gold-foil tabular-nums">
+                +68%
+              </span>
+            </div>
+
+          </div>
+
+          <!-- Dynamic Verbal Script Ready to Speak -->
+          <div class="mt-6 p-4 rounded-xl bg-noir-950/80 border border-winesip/30 text-xs text-slate-300 leading-relaxed shadow-inner">
+            <div class="flex items-center gap-1.5 text-indigo-300 font-mono text-[10px] uppercase mb-1">
+              <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+              Argumento verbal para el cliente:
+            </div>
+            <p id="calc-summary" class="italic text-sm text-slate-200 font-sans">
+              "Con solo 2 visitantes que lleguen en el mes gracias a WineSip, ya cubren la totalidad de su suscripción de $99 y dejan $67 de utilidad neta en caja."
+            </p>
+          </div>
+
+          <!-- Quick Copy WhatsApp Pitch Pill -->
+          <button onclick="copyRoiWhatsAppSummary()" class="mt-4 w-full py-2.5 rounded-xl bg-noir-850 hover:bg-noir-750 text-slate-200 hover:text-white text-xs font-mono border border-winesip/30 hover:border-winesip transition-all flex items-center justify-center gap-2">
+            <i data-lucide="share-2" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>Copiar cálculo para WhatsApp</span>
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision Section: The Bodega Dilemma -->
+  <section id="vision" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-winesip/20 border border-winesip/50 text-indigo-200 text-xs font-mono mb-4">
+          <i data-lucide="compass" class="w-3.5 h-3.5 text-indigo-300"></i>
+          Filosofía Comercial & Diagnóstico de Campo
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-heading font-bold text-white leading-[1.15]">
+          El verdadero dilema de la bodega moderna
+        </h2>
+        
+        <p class="mt-6 text-slate-300 text-base leading-relaxed">
+          Las bodegas invierten millones en barricas de roble francés, tecnología enológica de punta y terrazas espectaculares. Sin embargo, cuando se trata de su <span class="text-indigo-300 font-medium">Tasting Room</span>, dependen de la suerte de quién pase por el camino.
+        </p>
+        
+        <p class="mt-4 text-slate-300 text-base leading-relaxed">
+          Los turistas que recorren el valle manejan preguntándose: <i class="text-white font-sans">"¿A qué bodega entramos a catar ahora mismo?"</i>. Si la bodega no aparece en su teléfono en ese segundo exacto, ese turista se detiene en la bodega vecina.
+        </p>
+
+        <!-- 3 Tactical Value Pillars -->
+        <div class="mt-8 space-y-4">
+          
+          <div class="flex items-start gap-3.5 p-4 rounded-xl bg-noir-850/60 border border-winesip/25">
+            <div class="w-8 h-8 rounded-lg bg-winesip/30 text-indigo-300 flex items-center justify-center shrink-0 mt-0.5 border border-winesip/50">
+              <i data-lucide="navigation-2" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white font-heading">Geolocalización en Tiempo Real</h4>
+              <p class="text-xs text-slate-300 mt-0.5">Captura al turista cuando ya está físicamente en el valle buscando su próxima parada.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3.5 p-4 rounded-xl bg-noir-850/60 border border-winesip/25">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 border border-emerald-500/30">
+              <i data-lucide="handshake" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white font-heading">Cero Comisión Por Botella</h4>
+              <p class="text-xs text-slate-300 mt-0.5">A diferencia de los intermediarios que cobran el 15% o 20%, el 100% de la venta directa en mostrador es ganancia neta del viñedo.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3.5 p-4 rounded-xl bg-noir-850/60 border border-winesip/25">
+            <div class="w-8 h-8 rounded-lg bg-winesip/30 text-indigo-300 flex items-center justify-center shrink-0 mt-0.5 border border-winesip/50">
+              <i data-lucide="gift" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white font-heading">Recompensas de Check-In</h4>
+              <p class="text-xs text-slate-300 mt-0.5">Incentivos de bienvenida exclusivos que elevan el ticket promedio de compra dentro del Tasting Room.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Atmospheric Cellar Visual Card with Brand Purple & Gold Accents -->
+      <div class="relative">
+        <div class="relative rounded-3xl overflow-hidden obsidian-card border border-winesip/30 group hover:border-winesip/60">
+          <img 
+            src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1200&q=80" 
+            alt="Servicio de vino de autor en copa" 
+            class="w-full h-[500px] object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-70"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-noir-950 via-noir-950/60 to-transparent"></div>
+          
+          <!-- Official WineSip Logo Watermark Badge -->
+          <div class="absolute top-6 right-6 px-3.5 py-1.5 rounded-full bg-noir-900/80 backdrop-blur-md border border-winesip/50 text-indigo-200 font-mono text-[10px] uppercase tracking-widest flex items-center gap-2 shadow-xl">
+            <img src="logo.png" alt="Logo" class="w-4 h-4 rounded-full object-cover" />
+            <span>Principio Clave</span>
+          </div>
+
+          <!-- The Golden Rule Quote -->
+          <div class="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-noir-900/90 border border-winesip/30 backdrop-blur-xl shadow-2xl">
+            <div class="flex items-center gap-2 text-xs font-mono text-indigo-300 uppercase mb-2">
+              <i data-lucide="target" class="w-3.5 h-3.5"></i>
+              La Regla de Oro del Vendedor de <span class="font-brand font-bold text-base tracking-normal text-indigo-200 lowercase capitalize">WineSip</span>
+            </div>
+            <p class="italic text-base sm:text-lg text-white leading-snug font-sans">
+              "Nunca ofrezcas bytes ni pantallas al bodeguero. Ofrece autos estacionándose en su viñedo y personas sentándose a brindar en su barra."
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Scientific Studies & Research Section -->
+  <section id="estudios" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-noir-850 border border-winesip/50 text-indigo-200 text-xs font-mono uppercase tracking-wider mb-4">
+        <i data-lucide="library" class="w-3.5 h-3.5 text-indigo-300"></i>
+        Evidencia Empírica de la Industria Vitivinícola
+      </div>
+      <h2 class="text-3xl sm:text-5xl font-heading font-bold text-white tracking-tight">
+        Estudios Científicos que Respaldan Cada Cifra
+      </h2>
+      <p class="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+        Ningún número del pitch fue inventado. Nuestra propuesta descansa sobre los informes económicos más rigurosos y respetados del sector a nivel mundial.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Study 1: Michigan State University (MSU) -->
+      <div class="obsidian-card p-8 rounded-3xl relative flex flex-col justify-between group hover:border-winesip/60">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-noir-850 text-indigo-300 flex items-center justify-center mb-6 border border-winesip/40 shadow-lg">
+            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+          </div>
+          <div class="text-[11px] font-mono text-indigo-300 uppercase tracking-wider">Investigación Académica Central</div>
+          <h3 class="text-xl font-heading font-bold text-white mt-1">Michigan State University (MSU)</h3>
+          <p class="text-xs text-slate-400 mt-1 mb-5 font-mono">Dept. of Community Sustainability</p>
+          
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Estudio cuantitativo sobre el comportamiento y gasto de miles de turistas en salas de degustación:
+          </p>
+
+          <div class="mt-5 space-y-3">
+            <div class="p-3 rounded-xl bg-noir-900/80 border border-white/[0.06]">
+              <span class="text-xs font-bold text-indigo-300 font-mono block">$44.57 USD</span>
+              <span class="text-[11px] text-slate-400">Gasto directo en botellas para llevar (visitas de día).</span>
+            </div>
+            <div class="p-3 rounded-xl bg-noir-900/80 border border-white/[0.06]">
+              <span class="text-xs font-bold text-indigo-300 font-mono block">$69.41 USD</span>
+              <span class="text-[11px] text-slate-400">Gasto en botellas de turistas con pernoctación/hospedaje.</span>
+            </div>
+            <div class="p-3 rounded-xl bg-noir-900/80 border border-white/[0.06]">
+              <span class="text-xs font-bold text-indigo-300 font-mono block">$73.41 USD vs $49.09</span>
+              <span class="text-[11px] text-slate-400">Cobrar degustación eleva paradójicamente el gasto final.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-winesip/25 text-xs text-indigo-300 font-mono flex items-center gap-1.5">
+          <i data-lucide="check-circle" class="w-4 h-4 text-indigo-300 shrink-0"></i>
+          <span>Origen de nuestra fórmula base: ~$83 USD</span>
+        </div>
+      </div>
+
+      <!-- Study 2: Silicon Valley Bank (SVB) State of Wine -->
+      <div class="obsidian-card p-8 rounded-3xl relative flex flex-col justify-between group hover:border-cabernet-600/50">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-noir-850 text-cabernet-400 flex items-center justify-center mb-6 border border-cabernet-600/40 shadow-lg">
+            <i data-lucide="trending-up" class="w-6 h-6"></i>
+          </div>
+          <div class="text-[11px] font-mono text-rose-300 uppercase tracking-wider">Referente Macroeconómico</div>
+          <h3 class="text-xl font-heading font-bold text-white mt-1">Silicon Valley Bank (SVB)</h3>
+          <p class="text-xs text-slate-400 mt-1 mb-5 font-mono">State of the US Wine Industry (Rob McMillan)</p>
+          
+          <p class="text-xs text-slate-300 leading-relaxed">
+            El informe financiero anual más consultado por dueños de viñedos y fondos de inversión:
+          </p>
+
+          <div class="mt-5 space-y-3">
+            <div class="p-3 rounded-xl bg-noir-900/80 border border-white/[0.06]">
+              <span class="text-xs font-bold text-rose-300 font-mono block">>72% Rentabilidad DTC</span>
+              <span class="text-[11px] text-slate-400">El Tasting Room representa más del 53% del ingreso total de la bodega.</span>
+            </div>
+            <div class="p-3 rounded-xl bg-noir-900/80 border border-white/[0.06]">
+              <span class="text-xs font-bold text-rose-300 font-mono block">$2,803 USD de LTV</span>
+              <span class="text-[11px] text-slate-400">Valor de por vida de un visitante que se une al Club de Vinos.</span>
+            </div>
+            <div class="p-3 rounded-xl bg-noir-900/80 border border-white/[0.06]">
+              <span class="text-xs font-bold text-rose-300 font-mono block">$60 a $120 USD CAC</span>
+              <span class="text-[11px] text-slate-400">Costo tradicional de captación de un visitante mediante agencias.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-white/10 text-xs text-rose-400 font-mono flex items-center gap-1.5">
+          <i data-lucide="check-circle" class="w-4 h-4 text-rose-400 shrink-0"></i>
+          <span>Demuestra el valor estratégico de la sala</span>
+        </div>
+      </div>
+
+      <!-- Study 3: Corporate Spend Limits & PLG Conversion -->
+      <div class="obsidian-card p-8 rounded-3xl relative flex flex-col justify-between group hover:border-winesip/60">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-noir-850 text-indigo-300 flex items-center justify-center mb-6 border border-winesip/40 shadow-lg">
+            <i data-lucide="credit-card" class="w-6 h-6"></i>
+          </div>
+          <div class="text-[11px] font-mono text-indigo-300 uppercase tracking-wider">Psicología de Compra B2B</div>
+          <h3 class="text-xl font-heading font-bold text-white mt-1">Límites Corporativos & PLG</h3>
+          <p class="text-xs text-slate-400 mt-1 mb-5 font-mono">Hospitality Spend & ProductLed Studies</p>
+          
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Dinámica de autorización de gasto de gerentes y directores de hospitalidad:
+          </p>
+
+          <div class="mt-5 space-y-3">
+            <div class="p-3 rounded-xl bg-noir-900/80 border border-white/[0.06]">
+              <span class="text-xs font-bold text-indigo-300 font-mono block">$100–$200 USD/mes</span>
+              <span class="text-[11px] text-slate-400">Límite de tarjeta de crédito que el encargado puede pagar sin consultar a la junta.</span>
+            </div>
+            <div class="p-3 rounded-xl bg-noir-900/80 border border-white/[0.06]">
+              <span class="text-xs font-bold text-indigo-300 font-mono block">18%–35% Conversión</span>
+              <span class="text-[11px] text-slate-400">Tasa de cierre de la "Prueba Inversa" (14 días Pro sin tarjeta) vs 2% freemium.</span>
+            </div>
+            <div class="p-3 rounded-xl bg-noir-900/80 border border-white/[0.06]">
+              <span class="text-xs font-bold text-indigo-300 font-mono block">Ventana 2026 WineDirect</span>
+              <span class="text-[11px] text-slate-400">WineDirect Classic cierra a finales de 2026 forzando adopción de soluciones modernas.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-winesip/25 text-xs text-indigo-300 font-mono flex items-center gap-1.5">
+          <i data-lucide="check-circle" class="w-4 h-4 text-indigo-300 shrink-0"></i>
+          <span>Justifica el precio de $99 y la prueba sin tarjeta</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Pricing Tiers -->
+  <section id="planes" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <span class="text-xs font-mono uppercase tracking-widest text-indigo-300">Estructura Comercial 100% Producción</span>
+      <h2 class="text-3xl sm:text-5xl font-heading font-bold text-white mt-2">
+        Planes Claros, Precios Sin Fricción
+      </h2>
+      <p class="mt-4 text-slate-300 text-sm sm:text-base">
+        Calibrados para que la bodega pueda suscribirse en el acto dentro de los límites de su tarjeta corporativa.
+      </p>
+
+      <!-- Monthly / Annual Toggle -->
+      <div class="inline-flex items-center gap-3 p-1.5 mt-8 rounded-2xl bg-noir-900 border border-winesip/40 shadow-2xl">
+        <button id="toggle-monthly" onclick="setBillingCycle('monthly')" class="px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-winesip text-white shadow-md shadow-winesip/40">
+          Facturación Mensual
+        </button>
+        <button id="toggle-annual" onclick="setBillingCycle('annual')" class="px-5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-2">
+          <span>Pago Anual</span>
+          <span class="px-2 py-0.5 text-[10px] font-mono rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">20% AHORRO</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Tier 0: Claimed Free -->
+      <div class="obsidian-card p-7 rounded-3xl flex flex-col justify-between hover:border-winesip/40">
+        <div>
+          <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Presencia Básica</div>
+          <h3 class="text-xl font-heading font-bold text-white mt-1">Reclamado</h3>
+          <p class="text-xs text-slate-400 mt-2">Para bodegas que solo desean existir en el mapa.</p>
+          
+          <div class="my-6">
+            <span class="text-4xl font-extrabold text-white font-heading">$0</span>
+            <span class="text-xs text-slate-400">/ siempre</span>
+          </div>
+
+          <ul class="space-y-3 text-xs text-slate-300">
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>1 Ubicación verificada en mapa</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>3 Fotos en galería</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>3 Vinos exhibidos</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Geocerca estándar 500m</span>
+            </li>
+            <li class="flex items-center gap-2.5 text-slate-500">
+              <i data-lucide="x" class="w-4 h-4 shrink-0"></i>
+              <span>Sin recompensas activas</span>
+            </li>
+            <li class="flex items-center gap-2.5 text-slate-500">
+              <i data-lucide="x" class="w-4 h-4 shrink-0"></i>
+              <span>Sin métricas de visitantes</span>
+            </li>
+          </ul>
+        </div>
+        <div class="mt-8 pt-4 border-t border-white/10 text-center">
+          <span class="text-xs text-slate-500 font-mono">Plan de inicio o fallback</span>
+        </div>
+      </div>
+
+      <!-- Tier 1: Starter -->
+      <div class="obsidian-card p-7 rounded-3xl flex flex-col justify-between hover:border-winesip/50">
+        <div>
+          <div class="text-[11px] font-mono text-indigo-300 uppercase tracking-wider">Boutique & Pequeñas</div>
+          <h3 class="text-xl font-heading font-bold text-white mt-1">Starter ("Cellar")</h3>
+          <p class="text-xs text-slate-400 mt-2">Para viñedos de menos de 5,000 cajas al año.</p>
+          
+          <div class="my-6">
+            <div class="flex items-baseline gap-1">
+              <span id="price-starter" class="text-4xl font-extrabold text-white font-heading">$49</span>
+              <span id="period-starter" class="text-xs text-slate-400">/ mes</span>
+            </div>
+            <div id="subtext-starter" class="text-[11px] text-emerald-400 font-mono mt-1">1 sola visita paga todo el mes</div>
+          </div>
+
+          <ul class="space-y-3 text-xs text-slate-300">
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-indigo-300 shrink-0"></i>
+              <span><b>10 Vinos destacados</b> con ficha</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-indigo-300 shrink-0"></i>
+              <span>10 Fotos en alta resolución</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-indigo-300 shrink-0"></i>
+              <span><b>1 Recompensa de bienvenida</b></span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-indigo-300 shrink-0"></i>
+              <span>Hasta 3 tours con reserva directa</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-indigo-300 shrink-0"></i>
+              <span>Analítica básica de 30 días</span>
+            </li>
+          </ul>
+        </div>
+        <div class="mt-8 pt-4 border-t border-white/10 text-center">
+          <span class="text-xs text-indigo-300 font-mono">Rentabilidad con 1 venta</span>
+        </div>
+      </div>
+
+      <!-- Tier 2: Professional -->
+      <div class="obsidian-card obsidian-card-featured p-7 rounded-3xl flex flex-col justify-between relative">
+        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-winesip via-winesip-500 to-winesip text-white font-mono text-[10px] uppercase font-black tracking-widest shadow-lg shadow-winesip/50 border border-winesip-300/40">
+          ⭐ MÁS ELEGIDO EN CAMPO
+        </div>
+        <div>
+          <div class="text-[11px] font-mono text-indigo-200 uppercase tracking-wider mt-2">Bodegas Comerciales</div>
+          <h3 class="text-2xl font-heading font-extrabold text-white mt-1">Professional ("Estate")</h3>
+          <p class="text-xs text-slate-300 mt-2">Para bodegas con sala de cata activa de 5,000 a 25,000 cajas.</p>
+          
+          <div class="my-6">
+            <div class="flex items-baseline gap-1">
+              <span id="price-pro" class="text-5xl font-black text-white font-heading">$99</span>
+              <span id="period-pro" class="text-xs text-slate-300">/ mes</span>
+            </div>
+            <div id="subtext-pro" class="text-[11px] text-emerald-400 font-mono mt-1 font-semibold">2 visitas cubren el mes (+167% ROI)</div>
+          </div>
+
+          <ul class="space-y-3 text-xs text-slate-200">
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-indigo-300 shrink-0"></i>
+              <span><b>25 Vinos en catálogo completo</b></span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-indigo-300 shrink-0"></i>
+              <span><b>3 Cuentas de equipo</b> (sommelier + caja)</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-indigo-300 shrink-0"></i>
+              <span><b>Hasta 3 Recompensas activas</b></span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-indigo-300 shrink-0"></i>
+              <span>Tours con video MP4 cinematográfico</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-indigo-300 shrink-0"></i>
+              <span>Geocerca flexible (100m a 2km)</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-indigo-300 shrink-0"></i>
+              <span><b>Métricas de intención y afluencia (12m)</b></span>
+            </li>
+          </ul>
+        </div>
+        <div class="mt-8 pt-4 border-t border-winesip/40 text-center">
+          <span class="text-xs text-indigo-200 font-semibold font-mono">El estándar para bodegas activas</span>
+        </div>
+      </div>
+
+      <!-- Tier 3: Portfolio -->
+      <div class="obsidian-card p-7 rounded-3xl flex flex-col justify-between hover:border-winesip/50">
+        <div>
+          <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Grupos & Rutas</div>
+          <h3 class="text-xl font-heading font-bold text-white mt-1">Portfolio ("Reserve")</h3>
+          <p class="text-xs text-slate-400 mt-2">Para grupos vitivinícolas con múltiples propiedades.</p>
+          
+          <div class="my-6">
+            <div class="flex items-baseline gap-1">
+              <span id="price-portfolio" class="text-4xl font-extrabold text-white font-heading">$249</span>
+              <span id="period-portfolio" class="text-xs text-slate-400">/ mes</span>
+            </div>
+            <div id="subtext-portfolio" class="text-[11px] text-slate-400 font-mono mt-1">Multi-propiedad y analítica de consejo</div>
+          </div>
+
+          <ul class="space-y-3 text-xs text-slate-300">
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><b>Hasta 5 Ubicaciones / Cavas incluidas</b></span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Cuentas ilimitadas de personal (RBAC)</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Catálogo y fotos ilimitadas</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Recompensas dinámicas programadas</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Reportes ejecutivos en PDF para junta</span>
+            </li>
+          </ul>
+        </div>
+        <div class="mt-8 pt-4 border-t border-white/10 text-center">
+          <span class="text-xs text-slate-400 font-mono">Para operadores de escala</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Reverse Trial Explainer -->
+  <section class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="obsidian-card rounded-3xl p-8 sm:p-12 relative overflow-hidden border border-winesip/40">
+      
+      <div class="max-w-3xl mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-winesip/25 border border-winesip/50 text-indigo-200 text-xs font-mono uppercase mb-3">
+          <i data-lucide="unlock" class="w-3.5 h-3.5 text-indigo-300"></i>
+          Metodología de Cero Fricción
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight">
+          La Prueba Inversa de 14 Días: Cómo Vender Sin Presionar
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base mt-2 leading-relaxed">
+          Muchos representantes se preocupan por pedir dinero en la primera cita. Con WineSip nunca tienes que forzar una venta incómoda ni exigir tarjetas en frío.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        
+        <div class="bg-noir-900/90 p-6 rounded-2xl border border-winesip/25 relative hover:border-winesip/50 transition-colors">
+          <div class="w-9 h-9 rounded-xl bg-winesip/30 text-indigo-200 flex items-center justify-center font-mono font-bold text-sm mb-4 border border-winesip/50">
+            01
+          </div>
+          <h4 class="text-base font-bold text-white mb-2 font-heading">Alta en 5 Minutos</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Solo necesitas su correo y nombre de la bodega. <b>No se solicita tarjeta de crédito</b>. Cero resistencia y máxima apertura.
+          </p>
+        </div>
+
+        <div class="bg-noir-900/90 p-6 rounded-2xl border border-winesip/25 relative hover:border-winesip/50 transition-colors">
+          <div class="w-9 h-9 rounded-xl bg-winesip/30 text-indigo-200 flex items-center justify-center font-mono font-bold text-sm mb-4 border border-winesip/50">
+            02
+          </div>
+          <h4 class="text-base font-bold text-white mb-2 font-heading">14 Días Pro Total</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Se activa automáticamente el plan <b>Professional ($99/mes)</b> con 25 vinos, video MP4 y 3 promociones activas.
+          </p>
+        </div>
+
+        <div class="bg-noir-900/90 p-6 rounded-2xl border border-winesip/25 relative hover:border-winesip/50 transition-colors">
+          <div class="w-9 h-9 rounded-xl bg-winesip/30 text-indigo-200 flex items-center justify-center font-mono font-bold text-sm mb-4 border border-winesip/50">
+            03
+          </div>
+          <h4 class="text-base font-bold text-white mb-2 font-heading">Comprueban Resultados</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Durante dos fines de semana, la bodega ve a turistas descubriéndola y experimenta clientes reales entrando por la puerta.
+          </p>
+        </div>
+
+        <div class="bg-noir-900/90 p-6 rounded-2xl border border-emerald-500/25 relative hover:border-emerald-500/50 transition-colors">
+          <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-mono font-bold text-sm mb-4 border border-emerald-500/40">
+            04
+          </div>
+          <h4 class="text-base font-bold text-white mb-2 font-heading">Degradación Amigable</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Si no pagan, <b>no se borra su perfil</b>: pasan al plan Reclamado Gratis en el mapa. La relación se mantiene intacta para el futuro.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Competitor Battlecard -->
+  <section id="competencia" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-xs font-mono uppercase tracking-widest text-indigo-300">Radiografía del Mercado</span>
+      <h2 class="text-3xl sm:text-5xl font-heading font-bold text-white mt-2">
+        <span class="font-brand text-4xl sm:text-6xl text-indigo-300 font-bold pr-1">WineSip</span> vs. Otras Alternativas
+      </h2>
+      <p class="mt-4 text-slate-300 text-sm sm:text-base">
+        Tu tabla comparativa para desarmar objeciones cuando el cliente mencione a otras plataformas.
+      </p>
+    </div>
+
+    <div class="obsidian-card rounded-3xl overflow-hidden border border-winesip/30 mb-10">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="bg-noir-950 border-b border-winesip/25 text-slate-300 font-mono text-[11px] uppercase tracking-wider">
+              <th class="p-5">Plataforma</th>
+              <th class="p-5">Modelo de Cobro</th>
+              <th class="p-5">Enfoque Primario</th>
+              <th class="p-5 text-indigo-300">¿Por Qué <span class="font-brand text-xl text-indigo-200 font-bold tracking-normal">WineSip</span> Gana?</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/[0.06] text-slate-300">
+            
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="p-5 font-bold text-white flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center">
+                  <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                </div>
+                <span>Vivino</span>
+              </td>
+              <td class="p-5 text-rose-300 font-mono font-medium">15% a 20% de comisión por botella</td>
+              <td class="p-5 text-slate-400">Comercio electrónico para tomar vino en casa</td>
+              <td class="p-5 text-white font-medium">
+                <span class="text-indigo-300 font-bold">Cero comisiones:</span> WineSip lleva personas físicas a la bodega y el 100% del margen se queda en la casa.
+              </td>
+            </tr>
+
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="p-5 font-bold text-white flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                  <i data-lucide="utensils" class="w-4 h-4"></i>
+                </div>
+                <span>OpenTable / Resy</span>
+              </td>
+              <td class="p-5 text-amber-300 font-mono font-medium">$1.00 a $1.50 USD por persona + cuota mensual</td>
+              <td class="p-5 text-slate-400">Reservaciones gastronómicas generales</td>
+              <td class="p-5 text-white font-medium">
+                Una mesa de 4 cuesta $6 USD cada vez. WineSip cobra tarifa plana mensual sin costo por persona ni castigos por volumen.
+              </td>
+            </tr>
+
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="p-5 font-bold text-white flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-winesip/30 text-indigo-300 flex items-center justify-center border border-winesip/50">
+                  <i data-lucide="instagram" class="w-4 h-4"></i>
+                </div>
+                <span>Meta Ads / Instagram</span>
+              </td>
+              <td class="p-5 text-slate-300 font-mono font-medium">$200–$500/mes en anuncios + costo de agencia</td>
+              <td class="p-5 text-slate-400">Likes, seguidores y alcance difuso</td>
+              <td class="p-5 text-white font-medium">
+                Un "like" no visita el viñedo. WineSip solo conecta con turistas que están físicamente en el valle con copa en mano.
+              </td>
+            </tr>
+
+            <tr class="hover:bg-white/[0.02] transition-colors">
+              <td class="p-5 font-bold text-white flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-slate-500/20 text-slate-400 flex items-center justify-center">
+                  <i data-lucide="book-open" class="w-4 h-4"></i>
+                </div>
+                <span>Folletos Impresos de Hotel</span>
+              </td>
+              <td class="p-5 text-slate-300 font-mono font-medium">$500–$1,500 USD por tiraje impreso</td>
+              <td class="p-5 text-slate-400">Papel estático en lobby de hoteles</td>
+              <td class="p-5 text-white font-medium">
+                Se vuelven obsoletos en semanas. WineSip actualiza añadas, precios y horarios en tiempo real en la pantalla del celular.
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Atmospheric Photo Banner -->
+    <div class="relative rounded-3xl overflow-hidden obsidian-card border border-winesip/40 h-52 sm:h-64 flex items-center justify-center">
+      <img src="https://images.unsplash.com/photo-1560512823-829485b8bf24?auto=format&fit=crop&w=1600&q=80" alt="Cava de barricas de roble francés" class="absolute inset-0 w-full h-full object-cover opacity-25" />
+      <div class="absolute inset-0 bg-gradient-to-r from-noir-950 via-noir-950/70 to-noir-950"></div>
+      <div class="relative z-10 text-center px-6 max-w-2xl">
+        <span class="text-xs font-mono uppercase tracking-widest text-indigo-300">Cero Comisiones &bull; Cero Trampas</span>
+        <h3 class="text-2xl sm:text-3xl font-heading font-bold text-white mt-1">
+          Las botellas vendidas en tu sala son 100% de la bodega
+        </h3>
+        <p class="text-slate-300 text-xs sm:text-sm mt-2 leading-relaxed">
+          WineSip no es una tienda online ni un intermediario financiero. Es tu imán directo de visitantes presenciales.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Objections Battlecard -->
+  <section id="objeciones" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-winesip/25 border border-winesip/50 text-indigo-200 text-xs font-mono uppercase mb-3">
+        <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-indigo-300"></i>
+        Manejo Táctico de Objeciones en Vivo
+      </div>
+      <h2 class="text-3xl sm:text-5xl font-heading font-bold text-white tracking-tight">
+        Respuestas Preparadas para Cada Freno
+      </h2>
+      <p class="mt-4 text-slate-300 text-sm sm:text-base">
+        Busca la objeción que te está dando el bodeguero para leer o copiar el argumento exacto palabra por palabra.
+      </p>
+
+      <!-- Instant Filter Bar & Category Chips -->
+      <div class="mt-8 max-w-xl mx-auto space-y-3">
+        
+        <div class="relative">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
+          <input 
+            id="search-objections" 
+            type="text" 
+            oninput="filterObjections()" 
+            placeholder="Buscar objeción (ej: caro, presupuesto, tiempo, web, comisión)..." 
+            class="w-full pl-11 pr-4 py-3 rounded-2xl bg-noir-900 border border-winesip/40 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-winesip focus:ring-1 focus:ring-winesip transition-colors shadow-inner"
+          />
+        </div>
+
+        <div class="flex items-center justify-center gap-2 flex-wrap text-xs">
+          <button onclick="setObjectionCategory('all')" id="tag-all" class="px-3.5 py-1.5 rounded-full bg-winesip text-white font-bold border border-winesip transition-all shadow-md shadow-winesip/30">Todas (6)</button>
+          <button onclick="setObjectionCategory('dinero')" id="tag-dinero" class="px-3.5 py-1.5 rounded-full bg-noir-850 hover:bg-noir-800 text-slate-300 border border-white/10 hover:border-winesip/40 transition-all">💰 Dinero / Costo</button>
+          <button onclick="setObjectionCategory('operacion')" id="tag-operacion" class="px-3.5 py-1.5 rounded-full bg-noir-850 hover:bg-noir-800 text-slate-300 border border-white/10 hover:border-winesip/40 transition-all">⏳ Tiempo / Personal</button>
+          <button onclick="setObjectionCategory('marketing')" id="tag-marketing" class="px-3.5 py-1.5 rounded-full bg-noir-850 hover:bg-noir-800 text-slate-300 border border-white/10 hover:border-winesip/40 transition-all">🌐 Web / Redes</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Accordion List -->
+    <div id="objections-container" class="max-w-3xl mx-auto space-y-4">
+      
+      <!-- Objection 1: Marketing / Web -->
+      <div class="obj-card obsidian-card rounded-2xl overflow-hidden hover:border-winesip/50" data-category="marketing" data-keywords="web redes sociales marketing google instagram plataforma">
+        <button onclick="toggleAccordion('obj1')" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-white/[0.02] transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded-lg bg-winesip/30 text-indigo-300 flex items-center justify-center text-xs font-mono font-bold border border-winesip/50">1</span>
+            <span class="font-heading font-bold text-white text-base">"Ya tenemos página web y redes sociales, no necesitamos otra plataforma."</span>
+          </div>
+          <i id="icon-obj1" data-lucide="chevron-down" class="w-5 h-5 text-indigo-300 rotate-180 transition-transform shrink-0"></i>
+        </button>
+        <div id="body-obj1" class="px-6 pb-6 text-sm text-slate-300 leading-relaxed border-t border-winesip/20 pt-4">
+          <p class="italic text-indigo-100 text-sm sm:text-base mb-4 leading-relaxed font-sans">
+            "Su página web es fantástica, pero depende de que la gente ya conozca su nombre y los busque con antelación en Google. WineSip funciona al revés: ayuda a los turistas que NO conocen su bodega pero que ya están recorriendo el valle buscando '¿A dónde vamos a probar buen vino ahora mismo?'. WineSip los captura en el momento exacto de la decisión y los guía directamente a su puerta."
+          </p>
+          <div class="flex items-center gap-3 flex-wrap">
+            <button onclick="copyToClipboard('Su página web es fantástica, pero depende de que la gente ya conozca su nombre y los busque con antelación en Google. WineSip funciona al revés: ayuda a los turistas que NO conocen su bodega pero que ya están recorriendo el valle buscando a dónde ir ahora mismo. WineSip los captura en el momento exacto de la decisión y los guía a su puerta.')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-xs text-indigo-300 border border-winesip/30 hover:border-winesip font-mono transition-colors">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span>Copiar argumento</span>
+            </button>
+            <button onclick="copyForWhatsApp('Argumento Web/Redes', 'Su página web es fantástica, pero depende de que la gente ya conozca su nombre. WineSip ayuda a los turistas que NO conocen su bodega pero que ya están en el valle buscando dónde degustar ahora mismo. Los captura en el momento de decisión.')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-xs text-emerald-400 border border-white/10 hover:border-emerald-500/40 font-mono transition-colors">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              <span>WhatsApp</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 2: Dinero / Presupuesto -->
+      <div class="obj-card obsidian-card rounded-2xl overflow-hidden hover:border-winesip/50" data-category="dinero" data-keywords="presupuesto dinero caro costo gasto crisis fondos">
+        <button onclick="toggleAccordion('obj2')" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-white/[0.02] transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded-lg bg-winesip/30 text-indigo-300 flex items-center justify-center text-xs font-mono font-bold border border-winesip/50">2</span>
+            <span class="font-heading font-bold text-white text-base">"En este momento no tenemos presupuesto para nuevos gastos."</span>
+          </div>
+          <i id="icon-obj2" data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform shrink-0"></i>
+        </button>
+        <div id="body-obj2" class="px-6 pb-6 text-sm text-slate-300 leading-relaxed border-t border-winesip/20 pt-4 hidden">
+          <p class="italic text-indigo-100 text-sm sm:text-base mb-4 leading-relaxed font-sans">
+            "Lo entiendo perfectamente, y por eso mismo no vengo a pedirle un cheque hoy. Le voy a activar su cuenta con 14 días de prueba completa en nuestro plan Professional sin pedirle tarjeta de crédito. Subimos sus 5 mejores vinos y dejamos su perfil listo en 5 minutos. Si en estas dos semanas ve que la plataforma le trae visitas y clientes, decide si continúa por solo $49 o $99 al mes. Si decide no continuar, su perfil básico se queda gratis y no habrá gastado ni un solo centavo. ¿Le parece justo?"
+          </p>
+          <div class="flex items-center gap-3 flex-wrap">
+            <button onclick="copyToClipboard('Lo entiendo perfectamente, y por eso mismo no vengo a pedirle un cheque hoy. Le voy a activar su cuenta con 14 días de prueba completa en nuestro plan Professional sin pedirle tarjeta de crédito. Si en dos semanas ve que la plataforma le trae visitas, decide si continúa por $49 o $99. Si no, su perfil se queda gratis sin gastar un centavo.')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-xs text-indigo-300 border border-winesip/30 hover:border-winesip font-mono transition-colors">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span>Copiar argumento</span>
+            </button>
+            <button onclick="copyForWhatsApp('Argumento Presupuesto', 'No vengo a pedirle dinero hoy. Le activo 14 días de prueba Professional sin tarjeta de crédito. Si en dos semanas le trae visitas, decide si continúa. Si no, se queda gratis en el mapa.')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-xs text-emerald-400 border border-white/10 hover:border-emerald-500/40 font-mono transition-colors">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              <span>WhatsApp</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 3: Operacion / Tiempo -->
+      <div class="obj-card obsidian-card rounded-2xl overflow-hidden hover:border-winesip/50" data-category="operacion" data-keywords="tiempo personal trabajo ocupados staff horas administrar aplicacion">
+        <button onclick="toggleAccordion('obj3')" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-white/[0.02] transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded-lg bg-winesip/30 text-indigo-300 flex items-center justify-center text-xs font-mono font-bold border border-winesip/50">3</span>
+            <span class="font-heading font-bold text-white text-base">"No tenemos tiempo ni personal para administrar otra aplicación."</span>
+          </div>
+          <i id="icon-obj3" data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform shrink-0"></i>
+        </button>
+        <div id="body-obj3" class="px-6 pb-6 text-sm text-slate-300 leading-relaxed border-t border-winesip/20 pt-4 hidden">
+          <p class="italic text-indigo-100 text-sm sm:text-base mb-4 leading-relaxed font-sans">
+            "WineSip está hecho específicamente para no consumir el tiempo de su equipo. Configurar su perfil toma menos de 10 minutos (y yo mismo se lo dejo listo hoy). Una vez cargados sus vinos y horarios, la plataforma trabaja en piloto automático. Cuando los visitantes llegan a su sala de degustación, el check-in lo hacen ellos mismos desde su celular. Su personal de mostrador solo se encarga de servir el vino y cobrar en su punto de venta como siempre."
+          </p>
+          <div class="flex items-center gap-3 flex-wrap">
+            <button onclick="copyToClipboard('WineSip está hecho para no consumir tiempo. Configurar el perfil toma 10 minutos y yo mismo se lo dejo listo hoy. Los turistas hacen check-in desde su celular. Su personal de mostrador solo se encarga de servir el vino y cobrar en caja como siempre.')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-xs text-indigo-300 border border-winesip/30 hover:border-winesip font-mono transition-colors">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span>Copiar argumento</span>
+            </button>
+            <button onclick="copyForWhatsApp('Argumento Tiempo/Personal', 'WineSip trabaja en piloto automático: toma 10 min configurarlo y yo se lo dejo listo. Los clientes hacen check-in en su teléfono; su equipo solo sirve el vino y cobra en caja.')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-xs text-emerald-400 border border-white/10 hover:border-emerald-500/40 font-mono transition-colors">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              <span>WhatsApp</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 4: Dinero / Gratis vs Pago -->
+      <div class="obj-card obsidian-card rounded-2xl overflow-hidden hover:border-winesip/50" data-category="dinero" data-keywords="gratis pagar 99 diferencia valor beneficios starter professional">
+        <button onclick="toggleAccordion('obj4')" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-white/[0.02] transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded-lg bg-winesip/30 text-indigo-300 flex items-center justify-center text-xs font-mono font-bold border border-winesip/50">4</span>
+            <span class="font-heading font-bold text-white text-base">"¿Por qué debería pagar $99 si existe una opción gratis?"</span>
+          </div>
+          <i id="icon-obj4" data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform shrink-0"></i>
+        </button>
+        <div id="body-obj4" class="px-6 pb-6 text-sm text-slate-300 leading-relaxed border-t border-winesip/20 pt-4 hidden">
+          <p class="italic text-indigo-100 text-sm sm:text-base mb-4 leading-relaxed font-sans">
+            "El plan gratis le da presencia en el mapa para no perderse. Pero el plan Professional de $99 está diseñado para ganar clientes frente a los vecinos: le permite exhibir hasta 25 vinos, mostrar videos de su cava, activar hasta 3 promociones exclusivas para atraer grupos y tener analíticas de cuánta gente los está buscando. Recuerde que con solo 2 personas que visiten su bodega al mes gracias a WineSip, los $99 ya están 100% pagados y todo lo demás es ganancia pura."
+          </p>
+          <div class="flex items-center gap-3 flex-wrap">
+            <button onclick="copyToClipboard('El plan gratis da presencia en el mapa. El plan Professional de $99 está diseñado para ganar clientes: le permite 25 vinos, videos de cava, promociones exclusivas y analíticas. Con 2 personas que visiten su bodega al mes, los $99 ya están 100% cubiertos.')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-xs text-indigo-300 border border-winesip/30 hover:border-winesip font-mono transition-colors">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span>Copiar argumento</span>
+            </button>
+            <button onclick="copyForWhatsApp('Argumento Gratis vs Pro', 'El plan gratis le da presencia en el mapa. El plan Professional de $99 le da 25 vinos, promociones de grupo y analíticas de intención. Con 2 visitantes al mes la suscripción se paga sola.')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-xs text-emerald-400 border border-white/10 hover:border-emerald-500/40 font-mono transition-colors">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              <span>WhatsApp</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 5: Operacion / Cita Previa -->
+      <div class="obj-card obsidian-card rounded-2xl overflow-hidden hover:border-winesip/50" data-category="operacion" data-keywords="cita previa exclusiva reserva exclusiva grupos privados agenda">
+        <button onclick="toggleAccordion('obj5')" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-white/[0.02] transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded-lg bg-winesip/30 text-indigo-300 flex items-center justify-center text-xs font-mono font-bold border border-winesip/50">5</span>
+            <span class="font-heading font-bold text-white text-base">"Nosotros operamos únicamente con cita previa y reservación exclusiva."</span>
+          </div>
+          <i id="icon-obj5" data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform shrink-0"></i>
+        </button>
+        <div id="body-obj5" class="px-6 pb-6 text-sm text-slate-300 leading-relaxed border-t border-winesip/20 pt-4 hidden">
+          <p class="italic text-indigo-100 text-sm sm:text-base mb-4 leading-relaxed font-sans">
+            "Excelente, ese es exactamente el perfil más exclusivo que busca nuestra comunidad. En WineSip su bodega se etiqueta como 'Solo con Reservación', lo que aumenta su aura de exclusividad. Configuramos el botón directo a su sistema de citas (o WhatsApp del sommelier) con sus reglas de anticipación. Así evitamos curiosos sin cita y canalizamos turistas calificados de alto ticket listos para reservar con ustedes."
+          </p>
+          <div class="flex items-center gap-3 flex-wrap">
+            <button onclick="copyToClipboard('Excelente, ese es el perfil exclusivo que busca nuestra comunidad. En WineSip su bodega se etiqueta como Solo con Reservación con botón directo a su sistema o WhatsApp. Así evitamos curiosos y canalizamos turistas calificados de alto ticket listos para reservar.')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-xs text-indigo-300 border border-winesip/30 hover:border-winesip font-mono transition-colors">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span>Copiar argumento</span>
+            </button>
+            <button onclick="copyForWhatsApp('Argumento Cita Previa', 'Su bodega se publica como Solo con Reservación con enlace directo a sus citas. Mantiene su exclusividad y atrae turistas calificados de alto ticket.')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-xs text-emerald-400 border border-white/10 hover:border-emerald-500/40 font-mono transition-colors">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              <span>WhatsApp</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection 6: Dinero / Temporada Baja -->
+      <div class="obj-card obsidian-card rounded-2xl overflow-hidden hover:border-winesip/50" data-category="dinero" data-keywords="temporada baja invierno frío lluvia turismo meses vacíos">
+        <button onclick="toggleAccordion('obj6')" class="w-full p-6 text-left flex justify-between items-center gap-4 hover:bg-white/[0.02] transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="w-6 h-6 rounded-lg bg-winesip/30 text-indigo-300 flex items-center justify-center text-xs font-mono font-bold border border-winesip/50">6</span>
+            <span class="font-heading font-bold text-white text-base">"¿Qué pasa si en temporada baja no vienen suficientes turistas?"</span>
+          </div>
+          <i id="icon-obj6" data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform shrink-0"></i>
+        </button>
+        <div id="body-obj6" class="px-6 pb-6 text-sm text-slate-300 leading-relaxed border-t border-winesip/20 pt-4 hidden">
+          <p class="italic text-indigo-100 text-sm sm:text-base mb-4 leading-relaxed font-sans">
+            "En temporada alta todo el mundo tiene salas llenas por inercia. Es en temporada baja cuando la geolocalización de WineSip hace la mayor diferencia: el turista que visita el valle en invierno usa la app para ver qué bodegas están abiertas, con salas climatizadas y catas activas. Además, con el plan anual de solo $79/mes, un solo grupo de 2 personas al mes en temporada baja cubre el costo del año completo."
+          </p>
+          <div class="flex items-center gap-3 flex-wrap">
+            <button onclick="copyToClipboard('En temporada alta todos se llenan. Es en temporada baja cuando la geolocalización hace la mayor diferencia: los turistas usan WineSip para ver quién está abierto y activo. Con el plan anual de $79/mes, 1 sola pareja de turistas al mes cubre todo el año.')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-xs text-indigo-300 border border-winesip/30 hover:border-winesip font-mono transition-colors">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span>Copiar argumento</span>
+            </button>
+            <button onclick="copyForWhatsApp('Argumento Temporada Baja', 'Es justo en temporada baja cuando WineSip más ayuda: los turistas usan la app para saber qué bodegas están abiertas y degustando. 1 pareja al mes cubre todo el costo anual.')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-noir-850 hover:bg-noir-750 text-xs text-emerald-400 border border-white/10 hover:border-emerald-500/40 font-mono transition-colors">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              <span>WhatsApp</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Pitch 5 Min Section -->
+  <section id="pitch" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="obsidian-card rounded-3xl p-6 sm:p-12 relative overflow-hidden border border-winesip/50 shadow-2xl shadow-winesip/20">
+      
+      <!-- Top Title & Pitch HUD Timer -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-10 pb-8 border-b border-winesip/25">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-winesip/25 border border-winesip/50 text-indigo-200 font-mono text-xs uppercase mb-2">
+            <i data-lucide="play-circle" class="w-3.5 h-3.5 text-indigo-300"></i>
+            Metodología de Campo Paso a Paso
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight">
+            La Visita Perfecta de 5 Minutos
+          </h2>
+          <p class="text-slate-300 text-sm mt-1">
+            Cronómetro interactivo para ensayar o guiar tu conversación en el Tasting Room. Marca los pasos al cumplirlos.
+          </p>
+        </div>
+
+        <!-- Interactive 5-Minute Stopwatch Instrument -->
+        <div class="bg-noir-900 p-5 rounded-2xl border border-winesip/40 shadow-xl flex items-center gap-6">
+          <div class="text-center">
+            <span class="text-[10px] font-mono uppercase text-slate-400 block tracking-wider">Cronómetro de Pitch</span>
+            <div id="timer-display" class="font-mono text-3xl font-black text-indigo-300 tracking-wider my-0.5">
+              05:00
+            </div>
+            <span id="timer-status" class="text-[10px] font-mono text-slate-500">Listo para iniciar</span>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <button id="btn-timer-start" onclick="togglePitchTimer()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-winesip to-winesip-500 hover:from-winesip-500 hover:to-winesip-400 text-white font-bold text-xs font-mono transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-winesip/40">
+              <i id="icon-timer-btn" data-lucide="play" class="w-3.5 h-3.5"></i>
+              <span id="text-timer-btn">Iniciar</span>
+            </button>
+            <button onclick="resetPitchTimer()" class="px-4 py-1.5 rounded-xl bg-noir-850 hover:bg-noir-800 text-slate-400 hover:text-white text-xs font-mono border border-white/10 transition-colors">
+              Reiniciar
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Overall Completion Progress Bar -->
+      <div class="mb-8">
+        <div class="flex justify-between items-center text-xs font-mono text-slate-300 mb-2">
+          <span>Progreso de la Visita Comercial:</span>
+          <span id="pitch-progress-pct" class="font-bold text-indigo-300">0% Completado</span>
+        </div>
+        <div class="w-full h-2.5 bg-noir-950 rounded-full overflow-hidden border border-white/10 p-0.5">
+          <div id="pitch-progress-bar" class="h-full bg-gradient-to-r from-winesip via-winesip-500 to-emerald-400 rounded-full transition-all duration-300 w-0"></div>
+        </div>
+      </div>
+
+      <!-- Step Cards (1 to 5) -->
+      <div class="space-y-4">
+        
+        <!-- Step 1 -->
+        <div onclick="toggleStep(1)" id="step-card-1" class="cursor-pointer flex items-start gap-4 p-5 rounded-2xl bg-noir-900/90 border border-white/10 hover:border-winesip/50 transition-all group">
+          <div id="step-badge-1" class="w-11 h-11 rounded-xl bg-noir-850 text-indigo-300 flex items-center justify-center font-mono font-bold text-base shrink-0 border border-white/10 group-hover:border-winesip/50 transition-all">
+            01
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-slate-400">Minuto 1 — Saludo y Conexión Sincera</span>
+              <span id="step-check-1" class="text-xs font-mono text-slate-500 flex items-center gap-1">
+                <i data-lucide="circle" class="w-3.5 h-3.5"></i>
+                <span>Pendiente</span>
+              </span>
+            </div>
+            <h4 class="text-base font-bold text-white mt-1 font-heading">Presentación personal y empatía</h4>
+            <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+              Preséntate con el encargado de la sala o gerente. Haz un elogio genuino sobre sus vinos o arquitectura y pregunta: <i class="text-indigo-200">"¿Cómo ha estado la afluencia de turistas en la sala esta temporada?"</i>
+            </p>
+            <div class="mt-3 flex items-center gap-2">
+              <button onclick="event.stopPropagation(); copyPitchScript('min1')" class="px-2.5 py-1 rounded bg-noir-850 text-[11px] font-mono text-slate-400 hover:text-white border border-white/10 hover:border-winesip/40 flex items-center gap-1">
+                <i data-lucide="copy" class="w-3 h-3"></i>
+                <span>Copiar frase</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div onclick="toggleStep(2)" id="step-card-2" class="cursor-pointer flex items-start gap-4 p-5 rounded-2xl bg-noir-900/90 border border-white/10 hover:border-winesip/50 transition-all group">
+          <div id="step-badge-2" class="w-11 h-11 rounded-xl bg-noir-850 text-indigo-300 flex items-center justify-center font-mono font-bold text-base shrink-0 border border-white/10 group-hover:border-winesip/50 transition-all">
+            02
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-slate-400">Minuto 2 — El Problema Real</span>
+              <span id="step-check-2" class="text-xs font-mono text-slate-500 flex items-center gap-1">
+                <i data-lucide="circle" class="w-3.5 h-3.5"></i>
+                <span>Pendiente</span>
+              </span>
+            </div>
+            <h4 class="text-base font-bold text-white mt-1 font-heading">La concentración del turismo en las 2 bodegas grandes</h4>
+            <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+              Menciona cómo los visitantes primerizos se detienen por inercia solo en las dos bodegas más comerciales de la entrada por falta de visibilidad en el celular, perdiéndose la experiencia de una bodega de autor como esta.
+            </p>
+            <div class="mt-3 flex items-center gap-2">
+              <button onclick="event.stopPropagation(); copyPitchScript('min2')" class="px-2.5 py-1 rounded bg-noir-850 text-[11px] font-mono text-slate-400 hover:text-white border border-white/10 hover:border-winesip/40 flex items-center gap-1">
+                <i data-lucide="copy" class="w-3 h-3"></i>
+                <span>Copiar frase</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div onclick="toggleStep(3)" id="step-card-3" class="cursor-pointer flex items-start gap-4 p-5 rounded-2xl bg-noir-900/90 border border-white/10 hover:border-winesip/50 transition-all group">
+          <div id="step-badge-3" class="w-11 h-11 rounded-xl bg-noir-850 text-indigo-300 flex items-center justify-center font-mono font-bold text-base shrink-0 border border-white/10 group-hover:border-winesip/50 transition-all">
+            03
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-slate-400">Minuto 3 — Demostración Táctil</span>
+              <span id="step-check-3" class="text-xs font-mono text-slate-500 flex items-center gap-1">
+                <i data-lucide="circle" class="w-3.5 h-3.5"></i>
+                <span>Pendiente</span>
+              </span>
+            </div>
+            <h4 class="text-base font-bold text-white mt-1 font-heading">Muestra la aplicación en tu propio teléfono</h4>
+            <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+              Abre WineSip en vivo. Muéstrale el mapa interactivo del valle, cómo luce una ficha premium con fotos de alta resolución y el catálogo de etiquetas con notas de cata y recompensas.
+            </p>
+            <div class="mt-3 flex items-center gap-2">
+              <a href="https://winesip-business.web.app" target="_blank" onclick="event.stopPropagation();" class="px-2.5 py-1 rounded bg-noir-850 text-[11px] font-mono text-indigo-200 hover:text-white border border-winesip/40 hover:border-winesip flex items-center gap-1">
+                <i data-lucide="external-link" class="w-3 h-3"></i>
+                <span>Abrir WineSip Web</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div onclick="toggleStep(4)" id="step-card-4" class="cursor-pointer flex items-start gap-4 p-5 rounded-2xl bg-noir-900/90 border border-white/10 hover:border-winesip/50 transition-all group">
+          <div id="step-badge-4" class="w-11 h-11 rounded-xl bg-noir-850 text-indigo-300 flex items-center justify-center font-mono font-bold text-base shrink-0 border border-white/10 group-hover:border-winesip/50 transition-all">
+            04
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-slate-400">Minuto 4 — El Retorno Incontestable</span>
+              <span id="step-check-4" class="text-xs font-mono text-slate-500 flex items-center gap-1">
+                <i data-lucide="circle" class="w-3.5 h-3.5"></i>
+                <span>Pendiente</span>
+              </span>
+            </div>
+            <h4 class="text-base font-bold text-white mt-1 font-heading">El cálculo de 1 solo visitante</h4>
+            <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+              Haz la cuenta rápida en voz alta: <i class="text-indigo-200">"Una persona que entra toma una cata de $38 y se lleva una botella de $45. Son $83 USD. Con UN solo cliente ganado al mes la herramienta ya se pagó sola y deja margen a favor."</i>
+            </p>
+            <div class="mt-3 flex items-center gap-2">
+              <button onclick="event.stopPropagation(); copyPitchScript('min4')" class="px-2.5 py-1 rounded bg-noir-850 text-[11px] font-mono text-slate-400 hover:text-white border border-white/10 hover:border-winesip/40 flex items-center gap-1">
+                <i data-lucide="copy" class="w-3 h-3"></i>
+                <span>Copiar cálculo</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: The Master Closing Step -->
+        <div onclick="toggleStep(5)" id="step-card-5" class="cursor-pointer flex items-start gap-4 p-5 rounded-2xl bg-gradient-to-r from-noir-900 via-noir-850 to-winesip/25 border-2 border-winesip/60 hover:border-winesip transition-all group">
+          <div id="step-badge-5" class="w-11 h-11 rounded-xl bg-winesip/30 text-indigo-200 flex items-center justify-center font-mono font-bold text-base shrink-0 border border-winesip/50 transition-all">
+            05
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-indigo-200 font-bold uppercase tracking-wider">Minuto 5 — Cierre Cero Riesgo</span>
+              <span id="step-check-5" class="text-xs font-mono text-slate-500 flex items-center gap-1">
+                <i data-lucide="circle" class="w-3.5 h-3.5"></i>
+                <span>Pendiente</span>
+              </span>
+            </div>
+            <h4 class="text-base font-bold text-white mt-1 font-heading">Alta inmediata sin pedir tarjeta</h4>
+            <p class="text-xs text-slate-200 mt-1 leading-relaxed">
+              <i class="text-indigo-200">"Hagamos algo: no me crea a mí, pruébelo usted mismo sin gastar un centavo. Le abro su perfil hoy con 14 días gratis en Professional sin pedirle tarjeta. ¿Cuál es el correo de la bodega para dejárselo listo ahora mismo?"</i>
+            </p>
+            <div class="mt-3 flex items-center gap-2">
+              <button onclick="event.stopPropagation(); copyPitchScript('min5')" class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-winesip to-winesip-500 hover:from-winesip-500 hover:to-winesip-400 text-white text-xs font-mono font-bold flex items-center gap-1.5 shadow-lg shadow-winesip/40">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                <span>Copiar Guión de Cierre</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-winesip/25 bg-noir-950 py-12 px-4 sm:px-6 lg:px-8 text-xs text-slate-400 font-mono">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+      
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-winesip to-noir-850 p-[1px] shadow-md shadow-winesip/30 border border-winesip/50 flex items-center justify-center overflow-hidden">
+          <img src="logo.png" alt="WineSip Logo" class="w-full h-full object-cover rounded-[10px]" />
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="font-brand font-bold text-2xl text-white tracking-normal leading-none pt-0.5">WineSip</span>
+          <span class="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider font-semibold rounded-full bg-winesip/25 text-indigo-300 border border-winesip/50 leading-none">Sales</span>
+          <span class="text-[10px] text-slate-500 font-mono hidden sm:inline">&bull; Manual de Ventas</span>
+        </div>
+      </div>
+
+      <div class="text-center text-slate-500 text-[11px] max-w-md">
+        Documento interno de ventas y battlecard comercial &bull; Prohibida su difusión sin autorización
+      </div>
+
+      <div class="flex items-center gap-5 text-slate-300">
+        <a href="https://docs.google.com/document/d/1kf0bbVV9DzE7lDP-r5U7ABNpoOBNmqCHo3h680_0cfU/edit?usp=drivesdk" target="_blank" class="hover:text-indigo-300 transition-colors flex items-center gap-1">
+          <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+          <span>Google Doc</span>
+        </a>
+        <span>&bull;</span>
+        <a href="https://winesip-business.web.app" target="_blank" class="hover:text-indigo-300 transition-colors flex items-center gap-1">
+          <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+          <span>Plataforma</span>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Floating Mobile Quick Sales Bar (Bottom HUD) -->
+  <div id="bottom-hud" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-noir-950/90 backdrop-blur-xl border border-winesip/50 rounded-2xl px-4 py-2.5 shadow-2xl shadow-winesip/25 flex items-center gap-3 sm:gap-4 max-w-[95vw]">
+    <a href="#calculadora" class="flex items-center gap-1.5 text-xs font-mono text-indigo-200 hover:text-white transition-colors">
+      <i data-lucide="calculator" class="w-3.5 h-3.5 text-indigo-300"></i>
+      <span class="hidden sm:inline">Calculadora</span>
+    </a>
+    <span class="w-[1px] h-4 bg-winesip/40"></span>
+    <a href="#pitch" class="flex items-center gap-1.5 text-xs font-mono text-indigo-200 hover:text-white transition-colors">
+      <i data-lucide="timer" class="w-3.5 h-3.5 text-indigo-300"></i>
+      <span class="hidden sm:inline">Pitch</span>
+    </a>
+    <span class="w-[1px] h-4 bg-winesip/40"></span>
+    <a href="#objeciones" class="flex items-center gap-1.5 text-xs font-mono text-indigo-200 hover:text-white transition-colors">
+      <i data-lucide="shield" class="w-3.5 h-3.5 text-indigo-300"></i>
+      <span class="hidden sm:inline">Objeciones</span>
+    </a>
+    <span class="w-[1px] h-4 bg-winesip/40"></span>
+    <button onclick="quickShareWhatsApp()" class="flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300 transition-colors">
+      <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+      <span>Resumen</span>
+    </button>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="fixed top-6 right-6 px-4 py-3 rounded-2xl bg-noir-900 border border-winesip/60 text-indigo-100 text-xs font-mono shadow-2xl shadow-winesip/20 transition-all duration-300 opacity-0 -translate-y-4 pointer-events-none flex items-center gap-2.5 z-50">
+    <div class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+      <i data-lucide="check" class="w-3.5 h-3.5"></i>
+    </div>
+    <span id="toast-text">Copiado al portapapeles</span>
+  </div>
+
+  <!-- Interactive Client-Side JavaScript Logic -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Sound FX Engine using Web Audio API
+    let audioFxEnabled = true;
+    let audioCtx = null;
+
+    function playChime(freq = 1100, type = 'sine', duration = 0.25) {
+      if (!audioFxEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, audioCtx.currentTime + duration);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // Fallback silently if audio context is blocked
+      }
+    }
+
+    function toggleAudioFx() {
+      audioFxEnabled = !audioFxEnabled;
+      const icon = document.getElementById('icon-sound');
+      if (audioFxEnabled) {
+        icon.setAttribute('data-lucide', 'volume-2');
+        showToast('Efectos de sonido activados');
+        playChime(880, 'sine', 0.2);
+      } else {
+        icon.setAttribute('data-lucide', 'volume-x');
+        showToast('Efectos de sonido silenciados');
+      }
+      lucide.createIcons();
+    }
+
+    // Dynamic Spotlight following cursor
+    const spotlight = document.getElementById('spotlight');
+    window.addEventListener('mousemove', (e) => {
+      document.documentElement.style.setProperty('--cursor-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--cursor-y', `${e.clientY}px`);
+    });
+
+    // Mobile Navigation Drawer Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // ==========================================
+    // 🧮 ROI SIMULATOR STATE & CALCULATION ENGINE
+    // ==========================================
+    let currentCalcPlan = 'pro'; // 'starter', 'pro', 'portfolio'
+    
+    const sliderVisitors = document.getElementById('slider-visitors');
+    const sliderSpend = document.getElementById('slider-spend');
+    const sliderVisitorsVal = document.getElementById('slider-visitors-val');
+    const sliderSpendVal = document.getElementById('slider-spend-val');
+
+    const calcGross = document.getElementById('calc-gross');
+    const calcCost = document.getElementById('calc-cost');
+    const calcNet = document.getElementById('calc-net');
+    const calcRoi = document.getElementById('calc-roi');
+    const calcSummary = document.getElementById('calc-summary');
+    const calcBadgeStatus = document.getElementById('calc-badge-status');
+    const calcRatioText = document.getElementById('calc-ratio-text');
+    const barCost = document.getElementById('bar-cost');
+    const barProfit = document.getElementById('bar-profit');
+
+    const planCosts = {
+      starter: 49,
+      pro: 99,
+      portfolio: 249
+    };
+
+    function updateCalculator() {
+      const visitors = parseInt(sliderVisitors.value, 10);
+      const spend = parseInt(sliderSpend.value, 10);
+      const cost = planCosts[currentCalcPlan];
+
+      sliderVisitorsVal.textContent = visitors + (visitors === 1 ? ' persona' : ' personas');
+      sliderSpendVal.textContent = '$' + spend + ' USD';
+
+      const grossIncome = visitors * spend;
+      const netProfit = grossIncome - cost;
+      const roiPercent = Math.round(((grossIncome - cost) / cost) * 100);
+      const multiplier = (grossIncome / cost).toFixed(2);
+
+      calcGross.textContent = '$' + grossIncome.toLocaleString() + ' USD';
+      calcCost.textContent = '-$' + cost + ' USD';
+      calcNet.textContent = (netProfit >= 0 ? '+$' : '-$') + Math.abs(netProfit).toLocaleString() + ' USD';
+      calcRoi.textContent = (roiPercent >= 0 ? '+' : '') + roiPercent + '%';
+      calcRatioText.textContent = multiplier + 'x Retorno';
+
+      // Bar width percentage
+      const totalBar = grossIncome + cost;
+      const costPct = Math.min(Math.max((cost / totalBar) * 100, 10), 90);
+      const profitPct = 100 - costPct;
+      barCost.style.width = costPct + '%';
+      barProfit.style.width = profitPct + '%';
+
+      if (netProfit >= 0) {
+        calcBadgeStatus.textContent = 'RENTABLE';
+        calcBadgeStatus.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+        calcSummary.textContent = `"Con ${visitors} ${visitors === 1 ? 'visitante que llegue' : 'visitantes que lleguen'} en el mes gracias a WineSip gastando $${spend} en cata y botellas, cubren el 100% del plan ${currentCalcPlan.toUpperCase()} ($${cost}/mes) y dejan +$${netProfit.toLocaleString()} USD de utilidad limpia directa a la caja."`;
+      } else {
+        calcBadgeStatus.textContent = 'RECUPERANDO';
+        calcBadgeStatus.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40';
+        const needed = Math.ceil(cost / spend);
+        calcSummary.textContent = `"Con un ticket promedio de $${spend} USD, la bodega necesita al menos ${needed} ${needed === 1 ? 'visitante' : 'visitantes'} en el mes para cubrir el 100% de la inversión y empezar a generar utilidad neta."`;
+      }
+    }
+
+    function setCalcPlan(plan) {
+      currentCalcPlan = plan;
+      const btnStarter = document.getElementById('plan-btn-starter');
+      const btnPro = document.getElementById('plan-btn-pro');
+      const btnPortfolio = document.getElementById('plan-btn-portfolio');
+
+      [btnStarter, btnPro, btnPortfolio].forEach(btn => {
+        btn.className = 'p-3.5 rounded-xl border text-left transition-all border-white/10 bg-noir-850 text-slate-300 hover:border-winesip/50';
+      });
+
+      if (plan === 'starter') {
+        btnStarter.className = 'p-3.5 rounded-xl border text-left transition-all border-winesip bg-winesip/30 text-white shadow-lg shadow-winesip/40';
+      } else if (plan === 'pro') {
+        btnPro.className = 'p-3.5 rounded-xl border text-left transition-all border-winesip bg-winesip/30 text-white shadow-lg shadow-winesip/40';
+      } else {
+        btnPortfolio.className = 'p-3.5 rounded-xl border text-left transition-all border-winesip bg-winesip/30 text-white shadow-lg shadow-winesip/40';
+      }
+
+      playChime(950, 'sine', 0.15);
+      updateCalculator();
+    }
+
+    function applyPreset(visitors, spend) {
+      sliderVisitors.value = visitors;
+      sliderSpend.value = spend;
+      playChime(1100, 'triangle', 0.18);
+      updateCalculator();
+    }
+
+    function setSpendValue(val) {
+      sliderSpend.value = val;
+      playChime(1050, 'sine', 0.15);
+      updateCalculator();
+    }
+
+    sliderVisitors.addEventListener('input', () => {
+      playChime(750 + parseInt(sliderVisitors.value) * 15, 'sine', 0.04);
+      updateCalculator();
+    });
+
+    sliderSpend.addEventListener('input', () => {
+      updateCalculator();
+    });
+
+    // Copy WhatsApp Summary of ROI
+    function copyRoiWhatsAppSummary() {
+      const visitors = sliderVisitors.value;
+      const spend = sliderSpend.value;
+      const cost = planCosts[currentCalcPlan];
+      const gross = visitors * spend;
+      const net = gross - cost;
+
+      const text = `🍷 *Propuesta WineSip Business para su Sala de Cata*\n` +
+        `• Plan evaluado: ${currentCalcPlan.toUpperCase()} ($${cost} USD/mes)\n` +
+        `• Visitantes estimados: ${visitors} personas/mes\n` +
+        `• Ticket promedio estimado: $${spend} USD ($38 cata + $45 botella)\n` +
+        `• Ingreso bruto estimado: $${gross} USD\n` +
+        `• Ganancia neta para la bodega: +$${net} USD\n` +
+        `Incluye 14 días de prueba sin pedir tarjeta de crédito. ¿Le abro el perfil hoy?`;
+
+      copyToClipboard(text, 'Cálculo preparado para WhatsApp');
+    }
+
+    // ==========================================
+    // 💳 PRICING TIERS BILLING CYCLE TOGGLE
+    // ==========================================
+    function setBillingCycle(cycle) {
+      const btnMonthly = document.getElementById('toggle-monthly');
+      const btnAnnual = document.getElementById('toggle-annual');
+      const priceStarter = document.getElementById('price-starter');
+      const pricePro = document.getElementById('price-pro');
+      const pricePortfolio = document.getElementById('price-portfolio');
+      const periodStarter = document.getElementById('period-starter');
+      const periodPro = document.getElementById('period-pro');
+      const periodPortfolio = document.getElementById('period-portfolio');
+      const subStarter = document.getElementById('subtext-starter');
+      const subPro = document.getElementById('subtext-pro');
+      const subPortfolio = document.getElementById('subtext-portfolio');
+
+      if (cycle === 'annual') {
+        btnAnnual.className = 'px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-winesip text-white shadow-md shadow-winesip/40 flex items-center gap-2';
+        btnMonthly.className = 'px-5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white';
+
+        priceStarter.textContent = '$39';
+        periodStarter.textContent = '/ mes (facturado $468/año)';
+        subStarter.textContent = 'Ahorras $120 al año (20% dto)';
+
+        pricePro.textContent = '$79';
+        periodPro.textContent = '/ mes (facturado $948/año)';
+        subPro.textContent = 'Ahorras $240 al año (20% dto)';
+
+        pricePortfolio.textContent = '$199';
+        periodPortfolio.textContent = '/ mes (facturado $2,388/año)';
+        subPortfolio.textContent = 'Ahorras $600 al año (20% dto)';
+      } else {
+        btnMonthly.className = 'px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-winesip text-white shadow-md shadow-winesip/40';
+        btnAnnual.className = 'px-5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white flex items-center gap-2';
+
+        priceStarter.textContent = '$49';
+        periodStarter.textContent = '/ mes';
+        subStarter.textContent = '1 sola visita paga todo el mes';
+
+        pricePro.textContent = '$99';
+        periodPro.textContent = '/ mes';
+        subPro.textContent = '2 visitas cubren el mes (+167% ROI)';
+
+        pricePortfolio.textContent = '$249';
+        periodPortfolio.textContent = '/ mes';
+        subPortfolio.textContent = 'Multi-propiedad y analítica de consejo';
+      }
+
+      playChime(1200, 'sine', 0.15);
+    }
+
+    // ==========================================
+    // ⚔️ OBJECTIONS FILTER & ACCORDION
+    // ==========================================
+    function toggleAccordion(id) {
+      const body = document.getElementById('body-' + id);
+      const icon = document.getElementById('icon-' + id);
+      const isHidden = body.classList.contains('hidden');
+
+      if (isHidden) {
+        body.classList.remove('hidden');
+        icon.classList.add('rotate-180', 'text-indigo-300');
+        icon.classList.remove('text-slate-400');
+        playChime(850, 'sine', 0.1);
+      } else {
+        body.classList.add('hidden');
+        icon.classList.remove('rotate-180', 'text-indigo-300');
+        icon.classList.add('text-slate-400');
+      }
+    }
+
+    let currentObjCategory = 'all';
+
+    function setObjectionCategory(cat) {
+      currentObjCategory = cat;
+      const tags = ['all', 'dinero', 'operacion', 'marketing'];
+      tags.forEach(t => {
+        const el = document.getElementById('tag-' + t);
+        if (t === cat) {
+          el.className = 'px-3.5 py-1.5 rounded-full bg-winesip text-white font-bold border border-winesip transition-all shadow-md shadow-winesip/30';
+        } else {
+          el.className = 'px-3.5 py-1.5 rounded-full bg-noir-850 hover:bg-noir-800 text-slate-300 border border-white/10 hover:border-winesip/40 transition-all';
+        }
+      });
+      playChime(900, 'sine', 0.1);
+      filterObjections();
+    }
+
+    function filterObjections() {
+      const query = document.getElementById('search-objections').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.obj-card');
+
+      cards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const keywords = card.getAttribute('data-keywords') || '';
+        const textContent = card.innerText.toLowerCase();
+
+        const matchesCat = (currentObjCategory === 'all' || category === currentObjCategory);
+        const matchesQuery = !query || keywords.includes(query) || textContent.includes(query);
+
+        if (matchesCat && matchesQuery) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // ==========================================
+    // ⏱️ 5-MINUTE PITCH STOPWATCH & CHECKLIST
+    // ==========================================
+    let timerSeconds = 300; // 5:00
+    let timerInterval = null;
+    let timerRunning = false;
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    function togglePitchTimer() {
+      const btn = document.getElementById('text-timer-btn');
+      const icon = document.getElementById('icon-timer-btn');
+      const status = document.getElementById('timer-status');
+
+      if (!timerRunning) {
+        timerRunning = true;
+        btn.textContent = 'Pausar';
+        icon.setAttribute('data-lucide', 'pause');
+        status.textContent = 'En curso en reunión...';
+        status.className = 'text-[10px] font-mono text-emerald-400 font-bold animate-pulse';
+        playChime(1300, 'triangle', 0.25);
+
+        timerInterval = setInterval(() => {
+          if (timerSeconds > 0) {
+            timerSeconds--;
+            document.getElementById('timer-display').textContent = formatTime(timerSeconds);
+
+            const elapsed = 300 - timerSeconds;
+            const currentMin = Math.min(Math.floor(elapsed / 60) + 1, 5);
+            highlightCurrentMinute(currentMin);
+          } else {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            btn.textContent = 'Reiniciar';
+            icon.setAttribute('data-lucide', 'rotate-ccw');
+            status.textContent = '¡Tiempo concluido!';
+            status.className = 'text-[10px] font-mono text-indigo-300 font-bold';
+            playChime(1500, 'square', 0.5);
+            showToast('¡5 minutos concluidos! Cierra la prueba de 14 días');
+          }
+        }, 1000);
+      } else {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        btn.textContent = 'Continuar';
+        icon.setAttribute('data-lucide', 'play');
+        status.textContent = 'Pausado';
+        status.className = 'text-[10px] font-mono text-amber-400';
+      }
+      lucide.createIcons();
+    }
+
+    function resetPitchTimer() {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timerSeconds = 300;
+      document.getElementById('timer-display').textContent = '05:00';
+      document.getElementById('text-timer-btn').textContent = 'Iniciar';
+      document.getElementById('icon-timer-btn').setAttribute('data-lucide', 'play');
+      const status = document.getElementById('timer-status');
+      status.textContent = 'Listo para iniciar';
+      status.className = 'text-[10px] font-mono text-slate-500';
+      lucide.createIcons();
+    }
+
+    function highlightCurrentMinute(min) {
+      for (let i = 1; i <= 5; i++) {
+        const card = document.getElementById('step-card-' + i);
+        if (i === min) {
+          card.classList.add('border-winesip', 'bg-noir-850');
+        } else if (!stepStatus[i]) {
+          card.classList.remove('border-winesip');
+        }
+      }
+    }
+
+    // Step Status Tracking
+    const stepStatus = { 1: false, 2: false, 3: false, 4: false, 5: false };
+
+    function toggleStep(num) {
+      stepStatus[num] = !stepStatus[num];
+      const card = document.getElementById('step-card-' + num);
+      const badge = document.getElementById('step-badge-' + num);
+      const check = document.getElementById('step-check-' + num);
+
+      if (stepStatus[num]) {
+        card.classList.add('border-emerald-500/70', 'bg-emerald-950/20');
+        badge.classList.add('bg-emerald-500/30', 'text-emerald-300', 'border-emerald-500/50');
+        check.innerHTML = `<i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i><span class="text-emerald-400 font-bold">Hecho</span>`;
+        playChime(1200 + (num * 100), 'sine', 0.2);
+      } else {
+        card.classList.remove('border-emerald-500/70', 'bg-emerald-950/20');
+        badge.classList.remove('bg-emerald-500/30', 'text-emerald-300', 'border-emerald-500/50');
+        check.innerHTML = `<i data-lucide="circle" class="w-3.5 h-3.5 text-slate-500"></i><span>Pendiente</span>`;
+      }
+      lucide.createIcons();
+
+      // Update progress
+      const completedCount = Object.values(stepStatus).filter(Boolean).length;
+      const pct = Math.round((completedCount / 5) * 100);
+      document.getElementById('pitch-progress-pct').textContent = pct + '% Completado';
+      document.getElementById('pitch-progress-bar').style.width = pct + '%';
+
+      if (pct === 100) {
+        showToast('🏆 ¡Pitch completado! Perfil listo para activación');
+        playChime(1600, 'triangle', 0.4);
+      }
+    }
+
+    // Quick Copy Scripts for Pitch
+    const pitchScripts = {
+      min1: '¿Cómo ha estado la afluencia de turistas en la sala esta temporada?',
+      min2: 'Muchos turistas primerizos terminan yendo a las dos bodegas más comerciales de la entrada por falta de visibilidad en el celular, perdiéndose de este viñedo.',
+      min4: 'Una persona que entra toma una cata de $38 y se lleva una botella de $45. Son $83 USD. Con UN solo cliente al mes la herramienta ya se pagó sola.',
+      min5: 'Hagamos algo: no me crea a mí, pruébelo usted mismo sin gastar un centavo. Le abro su perfil hoy con 14 días gratis en Professional sin pedir tarjeta de crédito. ¿Cuál es el correo para crearlo ahora mismo?'
+    };
+
+    function copyPitchScript(key) {
+      if (pitchScripts[key]) {
+        copyToClipboard(pitchScripts[key], 'Frase copiada para hablar');
+      }
+    }
+
+    // ==========================================
+    // 📋 TOAST & CLIPBOARD HELPER
+    // ==========================================
+    function copyToClipboard(text, msg = 'Copiado al portapapeles') {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(msg);
+        playChime(1400, 'sine', 0.15);
+      }).catch(() => {
+        showToast(msg);
+      });
+    }
+
+    function copyForWhatsApp(title, argument) {
+      const msg = `🍷 *WineSip Business — ${title}*\n${argument}\n\n_14 días de prueba gratuita sin tarjeta de crédito._`;
+      copyToClipboard(msg, 'Formateado para WhatsApp');
+    }
+
+    function quickShareWhatsApp() {
+      const text = `🍷 *WineSip Business — Manual Comercial*\n` +
+        `• 1 solo visitante extra al mes paga el plan Starter ($49)\n` +
+        `• Gasto promedio por visitante: ~$83 USD (Estudio MSU)\n` +
+        `• 14 días de prueba Professional sin tarjeta de crédito\n` +
+        `• 0% comisión por botella vendida en sala de degustación\n` +
+        `Ver plataforma: https://winesip-business.web.app`;
+      copyToClipboard(text, 'Resumen ejecutivo copiado para WhatsApp');
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toast-text');
+      toastText.textContent = text;
+      toast.classList.remove('opacity-0', '-translate-y-4', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', '-translate-y-4', 'pointer-events-none');
+      }, 2800);
+    }
+
+    // Initial Calculation Run on Load
+    updateCalculator();
+  </script>
+</body>
+</html>
